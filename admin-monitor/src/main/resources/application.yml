@@ -1,0 +1,25 @@
+server:
+  port: 7124
+
+spring:
+  application:
+    name: admin-monitor
+
+eureka:
+  client:
+    fetch-registry: true
+    healthcheck:
+      enabled: true
+    service-url:
+      defaultZone: http://${spring.cloud.client.ip-address}:7121/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+management:
+  trace:
+    http:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
