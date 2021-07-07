@@ -1,10 +1,10 @@
-package pers.guzx.user;
+package pers.guzx.notice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class UserApplicationTests {
+class NoticeApplicationTests {
 
     @Test
     void contextLoads() {

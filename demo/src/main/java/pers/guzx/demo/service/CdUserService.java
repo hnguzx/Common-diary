@@ -17,6 +17,6 @@ import java.util.List;
  * @date 2021/7/5 10:54
  * @describe
  */
-public interface CdUserService<T> extends BaseService<CdUser> {
+public interface CdUserService extends BaseService<CdUser> {
     public List<CdUser> findUserList(CdUser user,int pageNum,int pageSize);
 }

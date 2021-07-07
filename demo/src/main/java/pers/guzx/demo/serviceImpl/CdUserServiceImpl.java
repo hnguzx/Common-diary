@@ -3,10 +3,7 @@ package pers.guzx.demo.serviceImpl;
 import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.RowBounds;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import pers.guzx.common.mapper.BaseMapper;
 import pers.guzx.common.serviceImpl.BaseServiceImpl;
 import pers.guzx.demo.entity.CdUser;
@@ -26,7 +23,7 @@ import java.util.Objects;
  */
 @Service
 @Slf4j
-public class CdUserServiceImpl extends BaseServiceImpl<CdUser> implements CdUserService<CdUser> {
+public class CdUserServiceImpl extends BaseServiceImpl<CdUser> implements CdUserService {
 
     @Resource
     private CdUserMapper userMapper;

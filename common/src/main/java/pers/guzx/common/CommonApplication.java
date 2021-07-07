@@ -1,18 +1,16 @@
-package pers.guzx.log;
+package pers.guzx.common;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * @author Administrator
  */
 @SpringBootApplication
-@EnableDiscoveryClient
-public class LogApplication {
+public class CommonApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(LogApplication.class, args);
+        SpringApplication.run(CommonApplication.class, args);
     }
 
 }
