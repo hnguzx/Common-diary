@@ -25,9 +25,7 @@ import java.io.IOException;
 public class LoginFailHandle implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException {
-        log.info("login fail");
-        JsonDto result;
-
+        JsonDto<ErrorCode> result;
         if (e instanceof AccountExpiredException) {
             //账号过期
             result = JsonDto.retFail(ErrorCode.USER_ACCOUNT_EXPIRED);
@@ -46,10 +44,11 @@ public class LoginFailHandle implements AuthenticationFailureHandler {
         } else if (e instanceof InternalAuthenticationServiceException) {
             //用户不存在
             result = JsonDto.retFail(ErrorCode.USER_ACCOUNT_NOT_EXIST);
-        }else{
+        } else {
             //其他错误
             result = JsonDto.retFail(ErrorCode.INTERNAL_SERVER_ERROR);
         }
+        log.info(result.getMessage());
         //处理编码方式，防止中文乱码的情况
         httpServletResponse.setContentType("text/json;charset=utf-8");
         //塞到HttpServletResponse中返回给前台

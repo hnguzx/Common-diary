@@ -39,7 +39,7 @@ public enum ErrorCode {
     FILE_NOT_FOUND(100004, "文件不存在！"),
     DATA_VALIDATE(100005, "数据验证未通过！"),
     VERIFY_ERROR(100006, "验证码不匹配！"),
-    USER_NOTFOUND(200000, "用户信息不存在！"),
+    USER_NOT_FOUND(200000, "用户信息不存在！"),
     USER_INSERT_FAIL(200001, "新增用户失败！"),
     USER_INFO_EXC(200002, "用户信息异常！"),
     USER_INFO_EXIST(200003, "该邮箱或手机号已注册！"),
