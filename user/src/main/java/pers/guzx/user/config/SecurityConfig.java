@@ -14,7 +14,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import pers.guzx.user.authen.AuthFilter;
 import pers.guzx.user.authen.AuthProvider;
 import pers.guzx.user.handle.*;
-import pers.guzx.user.serviceImpl.SysPermissionServiceImpl;
 import pers.guzx.user.serviceImpl.UserDetailServiceImpl;
 
 import javax.annotation.Resource;
@@ -33,12 +32,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private UserDetailServiceImpl userDetailService;
 
-    // 授权处理
+
     @Resource
     private AuthenticationExceptionHandle authenticationExceptionHandle;
     @Resource
     private AuthenticationAccessDeniedHandler authenticationAccessDeniedHandler;
-    // 登录处理
+
     @Resource
     private LoginSuccessHandle loginSuccessHandle;
     @Resource
@@ -61,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.cors().and().csrf().disable();
         // 登录登出相关
-        http.formLogin().loginProcessingUrl("/login")
+        http.formLogin()
                 .successHandler(loginSuccessHandle)
                 .failureHandler(loginFailHandle)
                 .and().exceptionHandling()
@@ -76,24 +75,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 跨域预检请求
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 // 登录URL
-                .antMatchers("/login/**").permitAll()
+                .antMatchers("/login").permitAll()
+                // 验证码
+                .antMatchers("/user/verificationCode/**").permitAll()
+                // 注册
+                .antMatchers("/user/registry/**").permitAll()
                 // swagger
                 .antMatchers("/swagger**/**").permitAll()
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/v2/**").permitAll()
                 // 其他所有请求需要身份认证
                 .anyRequest().authenticated();
-
-        //查询所有权限,动态权限认证
-//        List<SysPermission> permissions = permissionService.allPermission();
-//        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizeRequests = http
-//                .authorizeRequests();
-//        permissions.forEach(sysPermission ->
-//        {
-//            log.info("获取权限为" + sysPermission.getPermCode());
-//            //将连接地址对应的权限存入
-//            authorizeRequests.antMatchers(sysPermission.getUrl()).hasAnyAuthority(sysPermission.getPermCode());
-//        });
 
         AuthProvider authProvider = new AuthProvider();
         authProvider.setUserDetailService(userDetailService);
@@ -124,10 +116,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         authFilter.setAuthenticationSuccessHandler(loginSuccessHandle);
         authFilter.setAuthenticationFailureHandler(loginFailHandle);
 
-        authFilter.setFilterProcessesUrl("/login/mobile");
+        authFilter.setFilterProcessesUrl("/login");
         authFilter.setAuthenticationManager(authenticationManagerBean());
         return authFilter;
     }
-
 
 }

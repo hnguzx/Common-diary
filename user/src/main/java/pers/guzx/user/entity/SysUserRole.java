@@ -11,11 +11,10 @@ import java.io.Serializable;
  * @describe
  */
 @Data
-public class RolePermission implements Serializable {
-
+public class SysUserRole implements Serializable {
     private Integer id;
 
-    private Integer roleId;
+    private Integer userId;
 
-    private Integer permId;
+    private Integer roleId;
 }

@@ -1,18 +1,20 @@
 package pers.guzx.user.serviceImpl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.util.StringUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import pers.guzx.common.util.EmailUtil;
 import pers.guzx.common.util.MobileUtil;
-import pers.guzx.user.entity.User;
+import pers.guzx.user.entity.SysUser;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Guzx
@@ -27,34 +29,29 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Resource
     private UserServiceImpl userService;
 
+    @Resource
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         if (StringUtils.isEmpty(username)) {
             log.info("UserDetailsService没有接收到用户账号");
-            throw new UsernameNotFoundException("UserDetailsService没有接收到用户账号");
+            throw new UsernameNotFoundException("用户不存在");
         } else {
-            //根据用户名查找用户信息
-            User user = null;
-            if (MobileUtil.isMobileNO(username)) {
-                //手机号验证码登陆
-                user = userService.findByPhone(username);
+            SysUser sysUser = null;
+            if (MobileUtil.isMobile(username)) {
+                sysUser = userService.findByPhone(username);
+            } else if (EmailUtil.isEmail(username)) {
+                sysUser = userService.findByEmail(username);
             } else {
-                //用户名, 密码登陆
-                user = userService.findByUserName(username);
+                sysUser = userService.findByUserName(username);
             }
-            if (user == null) {
+            if (sysUser == null) {
                 throw new UsernameNotFoundException(String.format("用户不存在", username));
             }
-            //新建权限集合
-            List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-            //模拟从数据库获取角色权限
-//            List<SysRole> sysRoleDTOList = user.getRoleList();
-//            for (SysRole role : sysRoleDTOList) {
-//                //封装用户信息和角色信息到SecurityContextHolder全局缓存中
-//                grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));
-//            }
-            return user;
+            return new User(sysUser.getUsername(), passwordEncoder.encode(sysUser.getPassword()),
+                    AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
         }
     }
 }

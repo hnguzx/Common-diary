@@ -26,7 +26,6 @@ public class LogoutSuccessHandle implements LogoutSuccessHandler {
     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
         Map<String, String[]> parameterMap = httpServletRequest.getParameterMap();
         String username = parameterMap.get("username")[0];
-//        redisTemplate.opsForHash().delete("loggedUser", username);
         log.trace("用户退出系统：" + username);
         httpServletResponse.setContentType("text/json;charset=utf-8");
         httpServletResponse.getWriter().write(JSON.toJSONString(JsonDto.retOk()));

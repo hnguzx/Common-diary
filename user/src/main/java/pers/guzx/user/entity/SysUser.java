@@ -9,7 +9,6 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import pers.guzx.common.validation.Group;
-import pers.guzx.user.dto.RoleDTO;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -33,8 +32,8 @@ import java.util.List;
 @Data
 @Table(name = "user")
 @Alias(value = "user")
-@GroupSequence({Group.Add.class, Group.Update.class, User.class})
-public class User implements UserDetails, Serializable {
+@GroupSequence({Group.Add.class, Group.Update.class, SysUser.class})
+public class SysUser implements Serializable {
 
     @NotNull(message = "id不能为空", groups = {Group.Update.class})
     @Id
@@ -74,49 +73,41 @@ public class User implements UserDetails, Serializable {
     @Column(name = "update_time")
     private LocalDateTime updateTime;
 
-    @ApiModelProperty(value = "用户的角色信息")
-    private List<SysRole> roleList;
+//    @ApiModelProperty(value = "用户的角色信息")
+//    private List<SysRole> roleList;
 
-    @ApiModelProperty(value = "用户的权限信息")
-    private List<SysPermission> permissionList;
+//    @ApiModelProperty(value = "用户的权限信息")
+//    private List<SysPermission> permissionList;
 
-    @ApiModelProperty(value = "用户的授权信息")
-    private Collection<? extends GrantedAuthority> authorities;
+//    @ApiModelProperty(value = "用户的授权信息")
+//    private Collection<? extends GrantedAuthority> authorities;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
-    }
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return authorities;
+//    }
 
-    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
-        this.authorities = authorities;
-    }
+//    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+//        this.authorities = authorities;
+//    }
 
-    public User(){}
+//    @Override
+//    public boolean isAccountNonExpired() {
+//        return true;
+//    }
 
-    public User(String username, String password, Collection authorities) {
-        this.username = username;
-        this.password = password;
-        this.authorities = authorities;
-    }
+//    @Override
+//    public boolean isAccountNonLocked() {
+//        return true;
+//    }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+//    @Override
+//    public boolean isCredentialsNonExpired() {
+//        return true;
+//    }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+//    @Override
+//    public boolean isEnabled() {
+//        return true;
+//    }
 }

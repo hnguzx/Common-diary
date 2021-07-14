@@ -39,6 +39,7 @@ public enum ErrorCode {
     FILE_NOT_FOUND(100004, "文件不存在！"),
     DATA_VALIDATE(100005, "数据验证未通过！"),
     VERIFY_ERROR(100006, "验证码不匹配！"),
+    VERIFY_NOT_FOUND(100007, "未获取验证码或验证码已过期！"),
     USER_NOT_FOUND(200000, "用户信息不存在！"),
     USER_INSERT_FAIL(200001, "新增用户失败！"),
     USER_INFO_EXC(200002, "用户信息异常！"),
@@ -59,6 +60,10 @@ public enum ErrorCode {
     DIARY_NOTFOUND(300000, "日记信息不存在！"),
     // 4000-4999 好友相关错误
     FRIEND_IS_ADDED(400000, "好友已添加，请不要重复添加！"),
+    // 5000-5999 通知系统错误
+    MSG_EMAIL_FORMAT_ERROR(500000,"邮箱格式不正确"),
+    MSG_RECEIVER_NOT_FOUND(500001,"消息接受者不能为空"),
+    MSG_CONTENT_NOT_FOUND(500002,"消息内容不能为空"),
     COMMON_BUSINESS_ERROR(999999, "通用业务错误");
 
     private int code;
