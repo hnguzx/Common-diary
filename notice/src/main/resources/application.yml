@@ -2,6 +2,8 @@ server:
   port: 7126
 
 spring:
+  aop:
+    proxy-target-class: true
   application:
     name: notice
   jpa:
@@ -12,6 +14,16 @@ spring:
     password: DBTQLRXWXWROYWMF
     protocol: smtp
     default-encoding: UTF-8
+  redis:
+    host: 8.136.133.5
+    port: 6379
+    jedis:
+      pool:
+        max-active: 100
+        min-idle: 5
+        max-idle: 10
+        max-wait: 1000
+    timeout: 10000
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://8.136.133.5:3306/common_diary

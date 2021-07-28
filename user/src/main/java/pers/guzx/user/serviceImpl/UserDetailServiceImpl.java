@@ -1,20 +1,17 @@
 package pers.guzx.user.serviceImpl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import pers.guzx.common.util.EmailUtil;
-import pers.guzx.common.util.MobileUtil;
-import pers.guzx.user.entity.SysUser;
+import org.springframework.stereotype.Service;
+import pers.guzx.user.entity.SysUserDetails;
+import pers.guzx.user.entity.UserAuthority;
+import pers.guzx.user.entity.UserRole;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author Guzx
@@ -23,35 +20,29 @@ import javax.annotation.Resource;
  * @describe
  */
 @Slf4j
-@Configuration
+@Service
 public class UserDetailServiceImpl implements UserDetailsService {
 
     @Resource
     private UserServiceImpl userService;
 
     @Resource
-    private PasswordEncoder passwordEncoder;
+    private RoleServiceImpl roleService;
+
+    @Resource
+    private AuthorityServiceImpl authorityService;
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        SysUserDetails user = (SysUserDetails) userService.getUserByUsername(username);
+        UserRole userRoleByUser = roleService.getUserRoleByUser(user);
+        GrantedAuthority role = roleService.getRoleById(userRoleByUser);
 
-        if (StringUtils.isEmpty(username)) {
-            log.info("UserDetailsService没有接收到用户账号");
-            throw new UsernameNotFoundException("用户不存在");
-        } else {
-            SysUser sysUser = null;
-            if (MobileUtil.isMobile(username)) {
-                sysUser = userService.findByPhone(username);
-            } else if (EmailUtil.isEmail(username)) {
-                sysUser = userService.findByEmail(username);
-            } else {
-                sysUser = userService.findByUserName(username);
-            }
-            if (sysUser == null) {
-                throw new UsernameNotFoundException(String.format("用户不存在", username));
-            }
-            return new User(sysUser.getUsername(), passwordEncoder.encode(sysUser.getPassword()),
-                    AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
-        }
+        List<UserAuthority> userAuthorityByUser = authorityService.getUserAuthorityByUser(user);
+        List<GrantedAuthority> authority = authorityService.getAuthorityById(userAuthorityByUser);
+        authority.add(role);
+        user.setAuthorities(authority);
+        return user;
     }
 }

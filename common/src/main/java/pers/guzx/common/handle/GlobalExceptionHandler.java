@@ -25,8 +25,8 @@ import java.util.List;
  * @date 2021/7/7 9:55
  * @describe
  */
-@RestControllerAdvice
 @Slf4j
+@RestControllerAdvice
 public class GlobalExceptionHandler implements WebMvcConfigurer {
 
     @Override

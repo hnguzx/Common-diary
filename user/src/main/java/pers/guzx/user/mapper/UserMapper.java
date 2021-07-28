@@ -1,16 +1,12 @@
 package pers.guzx.user.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 import pers.guzx.common.mapper.BaseMapper;
-import pers.guzx.user.entity.SysUser;
-
+import pers.guzx.user.entity.SysUserDetails;
 /**
  * @author Guzx
  * @version 1.0
- * @date 2021/7/6 15:03
+ * @date 2021/7/19 10:23
  * @describe
  */
-@Mapper
-public interface UserMapper extends BaseMapper<SysUser> {
+public interface UserMapper extends BaseMapper<SysUserDetails> {
 }

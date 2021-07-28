@@ -4,21 +4,20 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pers.guzx.common.code.ErrorCode;
 import pers.guzx.common.dto.JsonDto;
 import pers.guzx.common.validation.Group;
 import pers.guzx.user.client.DemoClient;
-import pers.guzx.user.client.NoticeClient;
-import pers.guzx.user.entity.SysUser;
-import pers.guzx.user.serviceImpl.UserServiceImpl;
+import pers.guzx.user.entity.SysUserDetails;
+import pers.guzx.user.service.AuthorityService;
+import pers.guzx.user.service.RoleService;
+import pers.guzx.user.service.UserService;
 
 import javax.annotation.Resource;
 import java.util.Objects;
-import java.util.concurrent.Callable;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author Guzx
@@ -30,56 +29,45 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("/user")
 @Slf4j
+@EnableAsync
 public class UserController {
 
     @Resource
-    private UserServiceImpl userService;
-
+    private UserService userService;
     @Resource
-    private NoticeClient noticeClient;
-
+    private RoleService roleService;
     @Resource
-    private PasswordEncoder passwordEncoder;
+    private AuthorityService authorityService;
 
     @ApiOperation(value = "用户注册")
     @PostMapping("/registry/{verificationCode}")
-    public JsonDto<SysUser> registry(@Validated(Group.Add.class) @RequestBody SysUser sysUser, @PathVariable String verificationCode) {
-        String code = redisTemplate.opsForValue().get("registry:" + sysUser.getEmail());
+    public JsonDto<SysUserDetails> registry(@Validated(Group.Add.class) @RequestBody SysUserDetails sysUserDetails, @PathVariable String verificationCode) {
+        String code = redisTemplate.opsForValue().get("registry:" + sysUserDetails.getEmail());
         if (Objects.isNull(code)) {
             return JsonDto.retFail(ErrorCode.VERIFY_NOT_FOUND);
         }
         if (!verificationCode.equals(code)) {
             return JsonDto.retFail(ErrorCode.VERIFY_ERROR);
         }
-        String encode = passwordEncoder.encode(sysUser.getPassword());
-        sysUser.setPassword(encode);
-        userService.save(sysUser);
-        return JsonDto.retOk(sysUser);
+        userService.save(sysUserDetails);
+        return JsonDto.retOk(sysUserDetails);
     }
 
     @Resource
     private RedisTemplate<String, String> redisTemplate;
 
     @PostMapping("/verificationCode/registry/{email}")
-    public JsonDto getVerificationCode(@PathVariable String email) {
-
-        SysUser byEmail = userService.findByEmail(email);
-        if (Objects.nonNull(byEmail)) {
-            return JsonDto.retFail(ErrorCode.USER_INFO_EXIST);
-        }
-
-        String code = noticeClient.sendVerificationCode(email);
-        redisTemplate.opsForValue().setIfAbsent("registry:" + email, code, 60, TimeUnit.SECONDS);
+    public JsonDto<Object> getVerificationCode(@PathVariable String email) {
+        userService.sendRegistryCode(email);
         return JsonDto.retOk();
     }
 
     @Resource
     private DemoClient demoClient;
 
-    @GetMapping("/demo")
-    public JsonDto<String> demo() {
-        String demo = demoClient.demo();
-        return JsonDto.retOk(demo);
+    @RequestMapping("/demo")
+    public JsonDto demo() {
+        return JsonDto.retOk();
     }
 
 }

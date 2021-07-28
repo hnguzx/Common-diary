@@ -23,14 +23,9 @@ import java.util.Date;
 public class SysMessage {
 
     private Integer msgId;
-
     private Integer msgType;
-
     private String sender;
-
     private String receiver;
-
     private Date sendTime;
-
     private String content;
 }

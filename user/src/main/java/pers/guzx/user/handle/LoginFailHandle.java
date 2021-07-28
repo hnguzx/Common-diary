@@ -8,6 +8,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.stereotype.Component;
 import pers.guzx.common.code.ErrorCode;
 import pers.guzx.common.dto.JsonDto;
+import pers.guzx.user.exception.BadVerificationCodeException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +33,10 @@ public class LoginFailHandle implements AuthenticationFailureHandler {
         } else if (e instanceof BadCredentialsException) {
             //密码错误
             result = JsonDto.retFail(ErrorCode.USER_CREDENTIALS_ERROR);
-        } else if (e instanceof CredentialsExpiredException) {
+        } else if (e instanceof BadVerificationCodeException) {
+            //验证码错误
+            result = JsonDto.retFail(ErrorCode.VERIFY_NOT_FOUND);
+        }else if (e instanceof CredentialsExpiredException) {
             //密码过期
             result = JsonDto.retFail(ErrorCode.USER_CREDENTIALS_EXPIRED);
         } else if (e instanceof DisabledException) {

@@ -4,7 +4,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,7 +20,9 @@ import java.util.List;
  */
 @Data
 @ApiModel(value = "Role对象", description = "角色表")
-public class SysRole {
+public class SysRole implements Serializable, GrantedAuthority {
+    @Id
+    @GeneratedValue(generator = "JDBC")
     @ApiModelProperty(value = "主键")
     private Integer roleId;
 
@@ -30,14 +36,10 @@ public class SysRole {
     private String roleDesc;
 
     @ApiModelProperty(value = "角色的权限")
-    private List<SysPermission> permissionList;
+    private List<SysAuthority> permissionList;
 
-    @ApiModelProperty(value = "创建时间")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "修改时间")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime updateTime;
-
+    @Override
+    public String getAuthority() {
+        return this.roleName;
+    }
 }

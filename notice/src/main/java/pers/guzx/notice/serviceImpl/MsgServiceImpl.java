@@ -2,10 +2,12 @@ package pers.guzx.notice.serviceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pers.guzx.common.mapper.BaseMapper;
 import pers.guzx.common.serviceImpl.BaseServiceImpl;
 import pers.guzx.notice.entity.SysMessage;
@@ -17,6 +19,7 @@ import tk.mybatis.mapper.common.Mapper;
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Guzx
@@ -26,6 +29,7 @@ import javax.mail.internet.MimeMessage;
  */
 @Slf4j
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class MsgServiceImpl extends BaseServiceImpl<SysMessage> implements MsgService {
 
     @Resource
@@ -33,6 +37,9 @@ public class MsgServiceImpl extends BaseServiceImpl<SysMessage> implements MsgSe
 
     @Resource
     private JavaMailSenderImpl mailSender;
+
+    @Resource
+    private RedisTemplate redisTemplate;
 
     @Value("${spring.mail.username}")
     public String sender;
@@ -78,6 +85,8 @@ public class MsgServiceImpl extends BaseServiceImpl<SysMessage> implements MsgSe
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
         String code = emailHandle.getVerifyCode();
+        redisTemplate.opsForValue().set("registry:" + email, code, 600, TimeUnit.SECONDS);
+        log.info("code：" + code);
         try {
             messageHelper.setFrom(sender);
             messageHelper.setTo(email);

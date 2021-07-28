@@ -27,7 +27,7 @@ public class AuthenticationAccessDeniedHandler implements AccessDeniedHandler {
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         response.setStatus(HttpStatus.OK.value());
         response.setContentType("application/json;charset=utf-8");
-        JsonDto<Object> objectJsonDto = JsonDto.retFail(ErrorCode.INTERNAL_SERVER_ERROR);
+        JsonDto<Object> objectJsonDto = JsonDto.retFail(ErrorCode.USER_NOT_AUTH);
         response.getWriter().write(JSONObject.toJSONString(objectJsonDto));
     }
 }
