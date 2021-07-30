@@ -25,8 +25,8 @@ public class LogoutSuccessHandle implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
         Map<String, String[]> parameterMap = httpServletRequest.getParameterMap();
-        String username = parameterMap.get("username")[0];
-        log.trace("用户退出系统：" + username);
+        /*String username = parameterMap.get("username")[0];
+        log.trace("用户退出系统：" + username);*/
         httpServletResponse.setContentType("text/json;charset=utf-8");
         httpServletResponse.getWriter().write(JSON.toJSONString(JsonDto.retOk()));
     }

@@ -57,7 +57,8 @@ public enum ErrorCode {
     USER_CONNECT_SUCCESS(200014, "连接成功"),
     USER_DISCONNECT_SUCCESS(200015, "断开连接成功"),
     USER_NOT_AUTH(200016, "用户没有权限"),
-    USER_ROLE_ERROR(200016, "用户角色不存在"),
+    USER_ROLE_ERROR(200017, "用户角色不存在"),
+    CUSTOMER_AUTHORITY_FAIL(200018, "客户认证失败"),
     // 3000-3999 通知相关错误
     DIARY_NOTFOUND(300000, "日记信息不存在！"),
     // 4000-4999 好友相关错误

@@ -58,7 +58,7 @@ eureka:
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: pers.guzx.demo.entity
+  type-aliases-package: pers.guzx.user.entity
 
 logging:
   level:
@@ -71,3 +71,7 @@ pagehelper:
   helper-dialect: mysql
   reasonable: true
   support-methods-arguments: true
+
+feign:
+  httpclient:
+    enabled: true

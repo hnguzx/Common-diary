@@ -83,6 +83,21 @@ public class JsonDto<T> implements Serializable {
     }
 
     /**
+     * 有data的失败返回
+     *
+     * @param data  详细错误信息
+     * @param <T>   泛型
+     * @return 失败信息
+     */
+    public static <T> JsonDto<T> retFail(T data) {
+        JsonDto<T> response = new JsonDto<>();
+        response.setCode(500);
+        response.setMessage("requested fail");
+        response.setData(data);
+        return response;
+    }
+
+    /**
      * 无data的失败返回
      *
      * @param code 错误码

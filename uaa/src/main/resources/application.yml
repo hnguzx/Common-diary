@@ -1,1 +1,76 @@
+server:
+  port: 7127
+spring:
+  application:
+    name: uaa
+  datasource:
+    url: jdbc:mysql://8.136.133.5:3306/common_diary?characterEncoding=UTF-8
+    username: root
+    password: Guzx.@970712
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 10
+      min-idle: 10
+      max-active: 50
+      max-wait: 100
+      time-between-eviction-runs-millis: 200000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      filters: stat,slf4j,wall
+      url: jdbc:mysql://8.136.133.5:3306/common_diary?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai
+      username: root
+      password: Guzx.@970712
+      keep-alive: true
+      max-pool-prepared-statement-per-connection-size: 20
+  redis:
+    host: 8.136.133.5
+    port: 6379
+    jedis:
+      pool:
+        max-active: 100
+        min-idle: 5
+        max-idle: 10
+        max-wait: 1000
+    timeout: 30000
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    throw-exception-if-no-handler-found: true
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - refresh
+          - health
+          - info
+          - env
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+    status-page-url: http://${spring.cloud.client.ip-address}:${server.port}/swagger-ui.html
+  client:
+    service-url:
+      defaultZone: http://${spring.cloud.client.ip-address}:7121/eureka
+    fetch-registry: true
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: pers.guzx.uaa.entity
+
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+debug: true
+logging:
+  level:
+    root: debug

@@ -32,7 +32,7 @@ import javax.annotation.Resource;
  */
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true,securedEnabled = true,jsr250Enabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource
@@ -64,18 +64,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 跨域预检请求
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                // 登录
+                // 登录/退出
                 .antMatchers("/common/login").permitAll()
+                .antMatchers("/logout").permitAll()
                 // 注册,验证码
-                .antMatchers("/user/verificationCode/**","/user/registry/**").permitAll()
+                .antMatchers("/user/verificationCode/**", "/user/registry/**").permitAll()
                 // swagger
                 .antMatchers("/swagger**/**").permitAll()
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/v2/**").permitAll()
-                .antMatchers("/common/**").permitAll()
+                .antMatchers("/common/**").access("hasRole('COMMON') or hasRole('ADMIN')or hasRole('USER')")
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user/**").hasRole("USER")
-                .antMatchers("/private/**").hasRole("ADMIN")
+                .antMatchers("/user/**").access("hasRole('ADMIN')or hasRole('USER')")
+                .antMatchers("/private/**").hasRole("SPECIAL")
                 .anyRequest().authenticated()
                 // 自定义授权
                 .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
