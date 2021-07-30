@@ -12,6 +12,8 @@ import pers.guzx.common.exception.BaseException;
 import pers.guzx.common.mapper.BaseMapper;
 import pers.guzx.common.serviceImpl.BaseServiceImpl;
 import pers.guzx.user.client.NoticeClient;
+import pers.guzx.user.client.UaaClient;
+import pers.guzx.user.entity.JWT;
 import pers.guzx.user.entity.RoleAuthority;
 import pers.guzx.user.entity.SysUserDetails;
 import pers.guzx.user.mapper.RoleAuthorityMapper;
@@ -22,7 +24,9 @@ import pers.guzx.user.service.UserService;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -90,6 +94,8 @@ public class UserServiceImpl implements UserService {
         if (Objects.nonNull(byEmail)) {
             throw new BaseException(ErrorCode.USER_INFO_EXIST);
         }
+
+
         noticeClient.sendVerificationCode(email);
     }
 

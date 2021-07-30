@@ -1,4 +1,4 @@
-package pers.guzx.uaa.config;
+package pers.guzx.notice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

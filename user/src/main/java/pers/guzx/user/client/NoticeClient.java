@@ -18,10 +18,10 @@ import pers.guzx.user.entity.SysMessage;
 @FeignClient(name = "notice")
 public interface NoticeClient {
 
-    @PostMapping("/mail")
+    @PostMapping("/notice/mail")
     JsonDto<Integer> sendSimpleEmail(@RequestBody SysMessage message);
 
     @Async
-    @GetMapping("/verificationCode/{email}")
+    @GetMapping("/notice/verificationCode/{email}")
     String sendVerificationCode(@PathVariable String email);
 }

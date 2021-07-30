@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @RestController
+@RequestMapping("/notice")
 public class MsgController {
 
     @Resource
