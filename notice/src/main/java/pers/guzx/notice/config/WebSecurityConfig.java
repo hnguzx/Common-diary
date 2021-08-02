@@ -1,10 +1,10 @@
 package pers.guzx.notice.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+//import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 /**
  * @author Guzx
@@ -12,10 +12,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * @date 2021/7/19 10:45
  * @describe
  */
-@Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+//@Configuration
+//@EnableWebSecurity
+//@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+/*public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Override
@@ -28,4 +28,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-}
+}*/

@@ -56,9 +56,25 @@ public class UserController {
     @Resource
     private RedisTemplate<String, String> redisTemplate;
 
-    @PostMapping("/verificationCode/registry/{email}")
-    public JsonDto<Object> getVerificationCode(@PathVariable String email) {
-        userService.sendRegistryCode(email);
+    /**
+     * 获取注册验证码
+     * @param emailOrMobile
+     * @return
+     */
+    @PostMapping("/verificationCode/registry/{emailOrMobile}")
+    public JsonDto<Object> getRegistryCode(@PathVariable String emailOrMobile) {
+        userService.sendRegistryCode(emailOrMobile);
+        return JsonDto.retOk();
+    }
+
+    /**
+     * 获取登录验证码
+     * @param email
+     * @return
+     */
+    @PostMapping("/verificationCode/login/{emailOrMobile}")
+    public JsonDto<Objects> getLoginCode(@PathVariable String emailOrMobile){
+        userService.sendLoginCode(emailOrMobile);
         return JsonDto.retOk();
     }
 

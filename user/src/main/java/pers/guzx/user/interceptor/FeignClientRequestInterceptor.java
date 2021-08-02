@@ -23,7 +23,7 @@ import java.util.*;
  * @describe
  */
 @Slf4j
-@Configuration
+//@Configuration
 public class FeignClientRequestInterceptor implements RequestInterceptor {
 
     @Resource

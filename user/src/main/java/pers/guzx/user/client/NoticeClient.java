@@ -22,6 +22,10 @@ public interface NoticeClient {
     JsonDto<Integer> sendSimpleEmail(@RequestBody SysMessage message);
 
     @Async
-    @GetMapping("/notice/verificationCode/{email}")
-    String sendVerificationCode(@PathVariable String email);
+    @GetMapping("/notice/registryCode/{email}")
+    String sendRegistryCode(@PathVariable String email);
+
+    @Async
+    @GetMapping("/notice/loginCode/{email}")
+    String sendLoginCode(@PathVariable String email);
 }

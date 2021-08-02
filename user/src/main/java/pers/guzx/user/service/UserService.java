@@ -15,4 +15,6 @@ public interface UserService extends BaseService<SysUserDetails> {
     UserDetails getUserByUsername(String username);
 
     void sendRegistryCode(String email);
+
+    void sendLoginCode(String email);
 }
