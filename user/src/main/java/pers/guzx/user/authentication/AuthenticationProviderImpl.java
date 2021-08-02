@@ -135,7 +135,7 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
         if (mobileCode) {
             String mobilePhone = authentication.getPrincipal().toString();
             // 校验手机验证码
-            String verificationCode = redisTemplate.opsForValue().get("code" + mobilePhone);
+            String verificationCode = redisTemplate.opsForValue().get("login:" + mobilePhone);
             if (!presentedPassword.equals(verificationCode)) {
                 log.debug("Failed to authenticate since password does not match stored value");
                 throw new BadVerificationCodeException(this.messages

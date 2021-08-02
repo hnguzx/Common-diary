@@ -81,11 +81,15 @@ public class MsgServiceImpl extends BaseServiceImpl<SysMessage> implements MsgSe
     }
 
     @Async
-    public String sendCode(String email) {
+    public String sendCode(String email, String type) {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
         String code = emailHandle.getVerifyCode();
-        redisTemplate.opsForValue().set("registry:" + email, code, 600, TimeUnit.SECONDS);
+        if (type.equals("login")) {
+            redisTemplate.opsForValue().set("login:" + email, code, 600, TimeUnit.SECONDS);
+        } else if (type.equals("registry")) {
+            redisTemplate.opsForValue().set("registry:" + email, code, 600, TimeUnit.SECONDS);
+        }
         log.info("code：" + code);
         try {
             messageHelper.setFrom(sender);

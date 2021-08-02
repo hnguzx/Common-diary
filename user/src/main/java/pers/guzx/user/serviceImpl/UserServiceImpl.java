@@ -11,7 +11,10 @@ import pers.guzx.common.dto.JsonDto;
 import pers.guzx.common.exception.BaseException;
 import pers.guzx.common.mapper.BaseMapper;
 import pers.guzx.common.serviceImpl.BaseServiceImpl;
+import pers.guzx.common.util.EmailUtil;
 import pers.guzx.user.client.NoticeClient;
+import pers.guzx.user.client.UaaClient;
+import pers.guzx.user.entity.JWT;
 import pers.guzx.user.entity.RoleAuthority;
 import pers.guzx.user.entity.SysUserDetails;
 import pers.guzx.user.mapper.RoleAuthorityMapper;
@@ -22,7 +25,9 @@ import pers.guzx.user.service.UserService;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -49,7 +54,7 @@ public class UserServiceImpl implements UserService {
     @Resource
     private NoticeClient noticeClient;
 
-    public SysUserDetails findByPhone(String phone) {
+    public UserDetails findByPhone(String phone) {
         Example example = new Example(SysUserDetails.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("phone", phone);
@@ -60,7 +65,7 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    public SysUserDetails findByEmail(String email) {
+    public UserDetails findByEmail(String email) {
         Example example = new Example(SysUserDetails.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("email", email);
@@ -85,12 +90,32 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Async
-    public void sendRegistryCode(String email) {
-        SysUserDetails byEmail = findByEmail(email);
-        if (Objects.nonNull(byEmail)) {
+    public void sendRegistryCode(String emailOrMobile) {
+        UserDetails user = null;
+        if (EmailUtil.isEmail(emailOrMobile)){
+            user =findByEmail(emailOrMobile);
+        }else{
+            user =findByPhone(emailOrMobile);
+        }
+        if (Objects.nonNull(user)) {
             throw new BaseException(ErrorCode.USER_INFO_EXIST);
         }
-        noticeClient.sendVerificationCode(email);
+        noticeClient.sendRegistryCode(emailOrMobile);
+    }
+
+    @Override
+    public void sendLoginCode(String emailOrMobile) {
+        UserDetails user = null;
+        if (EmailUtil.isEmail(emailOrMobile)){
+            user =findByEmail(emailOrMobile);
+        }else{
+            user =findByPhone(emailOrMobile);
+        }
+
+        if (Objects.isNull(user)) {
+            throw new BaseException(ErrorCode.USER_NOT_FOUND);
+        }
+        noticeClient.sendLoginCode(emailOrMobile);
     }
 
     @Override

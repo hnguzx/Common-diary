@@ -2,6 +2,9 @@ server:
   port: 7126
 
 spring:
+  devtools:
+    livereload:
+      port: 35730
   aop:
     proxy-target-class: true
   application:

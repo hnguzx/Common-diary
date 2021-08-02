@@ -66,9 +66,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 // 登录/退出
                 .antMatchers("/common/login").permitAll()
-                .antMatchers("/logout").permitAll()
+//                .antMatchers("/logout").permitAll()
                 // 注册,验证码
-                .antMatchers("/user/verificationCode/**", "/user/registry/**").permitAll()
+                .antMatchers("/user/verificationCode/**", "/user/registry/**", "/user/login/**").permitAll()
                 // swagger
                 .antMatchers("/swagger**/**").permitAll()
                 .antMatchers("/webjars/**").permitAll()

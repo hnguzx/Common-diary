@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @RestController
+@RequestMapping("/notice")
 public class MsgController {
 
     @Resource
@@ -33,9 +34,15 @@ public class MsgController {
         return JsonDto.retOk(integer);
     }
 
-    @GetMapping("/verificationCode/{email}")
+    @GetMapping("/registryCode/{email}")
     public JsonDto<Object> verificationCode(@PathVariable String email) {
-        msgService.sendCode(email);
+        msgService.sendCode(email,"registry");
+        return JsonDto.retOk();
+    }
+
+    @GetMapping("/loginCode/{email}")
+    public JsonDto<Object> loginCode(@PathVariable String email) {
+        msgService.sendCode(email,"login");
         return JsonDto.retOk();
     }
 }
