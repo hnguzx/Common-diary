@@ -1,8 +1,5 @@
 package pers.guzx.common.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import pers.guzx.common.code.ErrorCode;
 
@@ -15,17 +12,13 @@ import java.io.Serializable;
  * @describe
  */
 @Data
-@ApiModel(value = "pers.guzx.common.dto.JsonDto", description = "返回Json数据")
 public class JsonDto<T> implements Serializable {
 
     private static final int SUCCESS_CODE = 200;
     private static final String SUCCESS_MSG = "SUCCESS";
 
-    @ApiModelProperty(value = "状态码")
     private int code = SUCCESS_CODE;
-    @ApiModelProperty(value = "描述信息")
     private String message = SUCCESS_MSG;
-    @ApiModelProperty("返回数据")
     private T data = null;
 
     /**
@@ -33,7 +26,6 @@ public class JsonDto<T> implements Serializable {
      *
      * @return true为正常返回
      */
-    @JsonIgnore
     public boolean isOk() {
         return code == SUCCESS_CODE;
     }

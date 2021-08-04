@@ -5,6 +5,8 @@ import pers.guzx.common.service.BaseService;
 import pers.guzx.common.serviceImpl.BaseServiceImpl;
 import pers.guzx.user.entity.SysUserDetails;
 
+import javax.jms.JMSException;
+
 /**
  * @author Guzx
  * @version 1.0
@@ -14,7 +16,7 @@ import pers.guzx.user.entity.SysUserDetails;
 public interface UserService extends BaseService<SysUserDetails> {
     UserDetails getUserByUsername(String username);
 
-    void sendRegistryCode(String email);
+    void sendRegistryCode(String email) throws JMSException;
 
-    void sendLoginCode(String email);
+    void sendLoginCode(String email) throws JMSException;
 }

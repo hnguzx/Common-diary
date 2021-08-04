@@ -3,9 +3,9 @@ package pers.guzx.notice.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-//import org.springframework.security.oauth2.provider.token.TokenStore;
-//import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-//import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 /**
  * @author Guzx
@@ -13,8 +13,8 @@ import org.springframework.context.annotation.Primary;
  * @date 2021/7/26 14:44
  * @describe
  */
-//@Configuration
-/*public class TokenConfig {
+@Configuration
+public class TokenConfig {
 
     private static final String SIGN_KEY = "uaa_service";
 
@@ -30,4 +30,4 @@ import org.springframework.context.annotation.Primary;
         tokenConverter.setSigningKey(SIGN_KEY);
         return tokenConverter;
     }
-}*/
+}
