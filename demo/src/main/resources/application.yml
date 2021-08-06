@@ -53,6 +53,8 @@ mybatis:
   type-aliases-package: pers.guzx.demo.entity
 
 logging:
+  file:
+    path: F:\logs
   level:
     pers:
       guzx:
@@ -63,3 +65,17 @@ pagehelper:
   helper-dialect: mysql
   reasonable: true
   support-methods-arguments: true
+management:
+  trace:
+    http:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    logfile:
+      enabled: true
+

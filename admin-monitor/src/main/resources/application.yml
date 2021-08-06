@@ -4,7 +4,22 @@ server:
 spring:
   application:
     name: admin-monitor
-
+#  security:
+#    user:
+#      name: "admin"
+#      password: "admin"
+  mail:
+    host: smtp.163.com
+    username: qq2544697696@163.com
+    password: DBTQLRXWXWROYWMF
+    protocol: smtp
+    default-encoding: UTF-8
+  boot:
+    admin:
+      notify:
+        mail:
+          to: hnguzx@qq.com
+          from: qq2544697696@163.com
 eureka:
   client:
     fetch-registry: true
@@ -15,6 +30,10 @@ eureka:
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+#    metadata-map:
+#      user.name: ${spring.security.user.name}
+#      user.password: ${spring.security.user.password}
+
 management:
   trace:
     http:
@@ -23,3 +42,12 @@ management:
     web:
       exposure:
         include: '*'
+  endpoint:
+    health:
+      show-details: always
+    logfile:
+      enabled: true
+logging:
+  file:
+    path: F:\logs
+    name: admin.log
