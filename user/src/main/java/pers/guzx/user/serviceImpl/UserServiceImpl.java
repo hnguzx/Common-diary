@@ -21,6 +21,7 @@ import tk.mybatis.mapper.entity.Example;
 import javax.annotation.Resource;
 import javax.jms.JMSException;
 import javax.jms.Queue;
+import javax.jms.Topic;
 import java.util.List;
 import java.util.Objects;
 
@@ -47,6 +48,8 @@ public class UserServiceImpl implements UserService {
     private JmsMessagingTemplate messagingTemplate;
     @Resource
     private Queue queue;
+    @Resource
+    private Topic topic;
 
     public UserDetails findByPhone(String phone) {
         Example example = new Example(SysUserDetails.class);
@@ -116,6 +119,7 @@ public class UserServiceImpl implements UserService {
         ActiveMQMapMessage mapMessage = new ActiveMQMapMessage();
         mapMessage.setString("emailOrMobile",emailOrMobile);
         mapMessage.setString("noticeType","login");
+        messagingTemplate.convertAndSend(queue,mapMessage);
     }
 
     @Override

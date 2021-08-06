@@ -15,7 +15,7 @@ import javax.jms.Message;
 @Component
 public class MQHandle {
 
-    @JmsListener(destination = "notice-queue")//监听哪个队列
+    @JmsListener(destination = "${queue}")//监听哪个队列
     public void send(Message message) {
         //将message对象转为MapMessage
         MapMessage mapMessage = (MapMessage) message;

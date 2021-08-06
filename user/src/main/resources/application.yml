@@ -1,9 +1,14 @@
 server:
   port: 7125
 
+myqueue: notice-queue
+mytopic: notice-topic
+
 spring:
   application:
     name: user
+  jms:
+    pub-sub-domain: false
   jpa:
     show-sql: true
   mvc:

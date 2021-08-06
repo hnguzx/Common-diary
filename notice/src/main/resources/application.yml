@@ -1,6 +1,8 @@
 server:
   port: 7126
 
+queue: notice-queue
+topic: notice-topic
 spring:
   devtools:
     livereload:

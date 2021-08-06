@@ -4,6 +4,8 @@ import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jms.annotation.EnableJms;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import javax.jms.Queue;
 import javax.jms.Topic;
@@ -15,6 +17,7 @@ import javax.jms.Topic;
  * @describe
  */
 @Configuration
+@EnableJms
 public class MQConfig {
 
     @Bean

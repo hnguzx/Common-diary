@@ -56,14 +56,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http
                 .cors()
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                // 跨域预检请求
-                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 // 登录/退出
                 .antMatchers("/common/login").permitAll()
 //                .antMatchers("/logout").permitAll()
