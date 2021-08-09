@@ -14,3 +14,12 @@ eureka:
   server:
     enable-self-preservation: false
     eviction-interval-timer-in-ms: 6000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
