@@ -4,10 +4,10 @@ server:
 spring:
   application:
     name: admin-monitor
-#  security:
-#    user:
-#      name: "admin"
-#      password: "admin"
+  security:
+    user:
+      name: "admin"
+      password: "admin"
   mail:
     host: smtp.163.com
     username: qq2544697696@163.com
@@ -16,10 +16,13 @@ spring:
     default-encoding: UTF-8
   boot:
     admin:
+      ui:
+        title: SpringBootAdmin-Server
       notify:
         mail:
           to: hnguzx@qq.com
           from: qq2544697696@163.com
+
 eureka:
   client:
     fetch-registry: true
@@ -27,12 +30,15 @@ eureka:
       enabled: true
     service-url:
       defaultZone: http://${spring.cloud.client.ip-address}:7121/eureka
+    register-with-eureka: true
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
-#    metadata-map:
-#      user.name: ${spring.security.user.name}
-#      user.password: ${spring.security.user.password}
+    metadata-map:
+      user.name: ${spring.security.user.name}
+      user.password: ${spring.security.user.password}
+    lease-renewal-interval-in-seconds: 10
+    health-check-url-path: /actuator/health
 
 management:
   trace:
@@ -47,7 +53,3 @@ management:
       show-details: always
     logfile:
       enabled: true
-logging:
-  file:
-    path: F:\logs
-    name: admin.log

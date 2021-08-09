@@ -61,6 +61,8 @@ mybatis:
   type-aliases-package: pers.guzx.user.entity
 
 logging:
+  file:
+    name: user-all.log
   level:
     pers:
       guzx:
@@ -75,3 +77,17 @@ pagehelper:
 feign:
   httpclient:
     enabled: true
+
+management:
+  trace:
+    http:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    logfile:
+      enabled: true
