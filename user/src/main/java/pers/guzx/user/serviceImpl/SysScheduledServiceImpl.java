@@ -1,8 +1,13 @@
 package pers.guzx.user.serviceImpl;
 
+import org.springframework.stereotype.Service;
 import pers.guzx.user.entity.SysScheduled;
+import pers.guzx.user.entity.SysUserDetails;
+import pers.guzx.user.mapper.SysScheduledMapper;
 import pers.guzx.user.service.SysScheduledService;
+import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -11,7 +16,12 @@ import java.util.List;
  * @date 2021/8/6 15:14
  * @describe
  */
+@Service
 public class SysScheduledServiceImpl implements SysScheduledService {
+
+    @Resource
+    private SysScheduledMapper scheduledMapper;
+
     @Override
     public SysScheduled findById(int id) {
         return null;
@@ -33,12 +43,19 @@ public class SysScheduledServiceImpl implements SysScheduledService {
     }
 
     @Override
-    public List<SysScheduled> selectAll() {
-        return null;
+    public List<SysScheduled> getAll() {
+        return scheduledMapper.selectAll();
     }
 
     @Override
-    public SysScheduled selectByScheduledKey(String key) {
+    public SysScheduled getByScheduledKey(String key) {
+        Example example = new Example(SysScheduled.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("cronKey", key);
+        List<SysScheduled> sysScheduleds = scheduledMapper.selectByExample(example);
+        if (sysScheduleds.size() > 0) {
+            return sysScheduleds.get(0);
+        }
         return null;
     }
 }

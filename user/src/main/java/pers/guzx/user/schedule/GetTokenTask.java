@@ -18,13 +18,13 @@ import java.util.Map;
  */
 @Slf4j
 @Component
-public class GetTokenTask {
+public class GetTokenTask implements ScheduledOfTask{
     @Resource
     private UaaClient uaaClient;
 
-    @Scheduled(cron = "* * */11 * * ?")
-    public void getAccessToken() {
-        log.info("自动任务执行");
+    @Override
+    public void execute() {
+        log.info("获取AccessToken");
         Map<String, String> params = new HashMap<>(3);
         params.put("client_id", "user");
         params.put("client_secret", "123456");
@@ -33,5 +33,4 @@ public class GetTokenTask {
 
         System.setProperty("accessToken", jwt.getAccess_token());
     }
-
 }

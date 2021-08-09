@@ -12,7 +12,7 @@ import java.util.List;
  * @describe
  */
 public interface SysScheduledService extends BaseService<SysScheduled> {
-    List<SysScheduled> selectAll();
+    List<SysScheduled> getAll();
 
-    SysScheduled selectByScheduledKey(String key);
+    SysScheduled getByScheduledKey(String key);
 }
