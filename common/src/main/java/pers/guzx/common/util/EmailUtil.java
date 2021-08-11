@@ -12,8 +12,7 @@ import java.util.regex.Pattern;
 public class EmailUtil {
 
     public static boolean isEmail(String mobile) {
-        String regExp = "^([a-z0-9A-Z]+[-|_|\\\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]" +
-                "+(-[a-z0-9A-Z]+)?\\\\.)+[a-zA-Z]{2,}$";
+        String regExp = "^\\s*\\w+(?:\\.?[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$";
         Pattern p = Pattern.compile(regExp);
         Matcher m = p.matcher(mobile);
         return m.matches();
