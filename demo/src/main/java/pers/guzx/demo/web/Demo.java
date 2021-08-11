@@ -40,6 +40,11 @@ public class Demo {
     @ApiOperation(value = "测试接口返回Json格式数据")
     @GetMapping("/json")
     public JsonDto<Object> jsonDto() {
+        log.trace("测试跟踪日志");
+        log.debug("测试调试日志");
+        log.info("测试普通日志");
+        log.warn("测试警告日志");
+        log.error("测试错误日志");
         return JsonDto.retOk();
     }
 

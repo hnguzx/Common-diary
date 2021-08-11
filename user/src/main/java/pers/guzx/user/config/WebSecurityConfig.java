@@ -63,13 +63,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 登录/退出
                 .antMatchers("/common/login").permitAll()
-//                .antMatchers("/logout").permitAll()
                 // 注册,验证码
                 .antMatchers("/user/verificationCode/**", "/user/registry/**", "/user/login/**").permitAll()
+                // 注册，登录
+                .antMatchers("/common/login","/user/verificationCode/**", "/user/registry/**", "/user/login/**").permitAll()
+
                 // swagger
-                .antMatchers("/swagger**/**").permitAll()
-                .antMatchers("/webjars/**").permitAll()
-                .antMatchers("/v2/**").permitAll()
+                .antMatchers("/actuator/**").permitAll()
+                .antMatchers("/swagger**/**","/webjars/**","/v2/**").permitAll()
                 .antMatchers("/common/**").access("hasRole('COMMON') or hasRole('ADMIN')or hasRole('USER')")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/**").access("hasRole('ADMIN')or hasRole('USER')")
