@@ -9,6 +9,9 @@ spring:
       port: 35730
   application:
     name: notice
+  zipkin:
+    discovery-client-enabled: true
+    base-url: http://127.0.0.1:9411/
   jpa:
     show-sql: true
   activemq:

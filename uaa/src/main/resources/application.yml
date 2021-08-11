@@ -3,6 +3,9 @@ server:
 spring:
   application:
     name: uaa
+  zipkin:
+    discovery-client-enabled: true
+    base-url: http://127.0.0.1:9411/
   datasource:
     url: jdbc:mysql://8.136.133.5:3306/common_diary?characterEncoding=UTF-8
     username: root

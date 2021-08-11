@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: gateway
+  zipkin:
+    base-url: http://127.0.0.1:9411/
+    discovery-client-enabled: true
   cloud:
     gateway:
       discovery:

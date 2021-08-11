@@ -2,6 +2,9 @@ server:
   port: 7124
 
 spring:
+  zipkin:
+    discovery-client-enabled: true
+    base-url: http://127.0.0.1:9411/
   application:
     name: admin-monitor
   security:
