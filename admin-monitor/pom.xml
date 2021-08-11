@@ -12,7 +12,7 @@
     <groupId>pers.guzx</groupId>
     <artifactId>admin-monitor</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>monitor</name>
+    <name>admin-monitor</name>
     <description>系统监控</description>
     <properties>
         <java.version>1.8</java.version>

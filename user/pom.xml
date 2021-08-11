@@ -125,6 +125,16 @@
             <artifactId>dozer</artifactId>
             <version>5.5.1</version>
         </dependency>
+        <!--        mq-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-activemq</artifactId>
+        </dependency>
+        <!--        websocket-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>

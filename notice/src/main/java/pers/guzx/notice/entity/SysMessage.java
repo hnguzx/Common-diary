@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.validation.GroupSequence;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -20,31 +21,22 @@ import java.util.Date;
  * @describe
  */
 @Data
-@Table(name = "sys_message")
-@Alias(value = "message")
 @GroupSequence({Group.Add.class, Group.Update.class, SysMessage.class})
 public class SysMessage {
 
-    @NotNull(message = "id不能为空", groups = {Group.Update.class})
     @Id
     @GeneratedValue(generator = "JDBC")
-    @Column(name = "msg_id")
+    @NotNull(message = "id不能为空", groups = {Group.Update.class})
     private Integer msgId;
 
-    @NotNull(message = "msgType不能为空", groups = {Group.Add.class, Group.Update.class})
-    @Column(name = "msg_type")
-    private Integer msgType;
+    @NotBlank(message = "msgType不能为空", groups = {Group.Add.class})
+    private String msgType;
 
-    @Column(name = "sender")
     private String sender;
 
-    @NotBlank(message = "receiver不能为空", groups = {Group.Add.class, Group.Update.class})
-    @Column(name = "receiver")
+    @NotBlank(message = "receiver不能为空", groups = {Group.Add.class})
     private String receiver;
 
-    private Date sendTime;
-
-    @NotBlank(message = "content不能为空", groups = {Group.Add.class, Group.Update.class})
-    @Column(name = "content")
+    @NotBlank(message = "content不能为空", groups = {Group.Add.class})
     private String content;
 }

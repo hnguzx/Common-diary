@@ -1,16 +1,21 @@
 server:
   port: 7126
 
+queue: notice-queue
+topic: notice-topic
 spring:
   devtools:
     livereload:
       port: 35730
-  aop:
-    proxy-target-class: true
   application:
     name: notice
   jpa:
     show-sql: true
+  activemq:
+    broker-url: tcp://127.0.0.1:61616
+    in-memory: false
+    user: admin
+    password: admin
   mail:
     host: smtp.163.com
     username: qq2544697696@163.com
@@ -52,7 +57,6 @@ spring:
       keep-alive: true
       max-pool-prepared-statement-per-connection-size: 20
 
-
 eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
@@ -72,6 +76,6 @@ logging:
   level:
     pers:
       guzx:
-        user:
+        notice:
           mapper: debug
-debug: true
+

@@ -1,12 +1,18 @@
 package pers.guzx.notice.handle;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Component;
 import pers.guzx.common.code.ErrorCode;
 import pers.guzx.common.exception.BaseException;
 import pers.guzx.common.util.EmailUtil;
+import pers.guzx.notice.entity.NoticeType;
 import pers.guzx.notice.entity.SysMessage;
 
 import javax.annotation.Resource;
@@ -21,50 +27,81 @@ import java.util.UUID;
  * @date 2021/7/13 14:29
  * @describe
  */
+@Slf4j
 @Component
+@EnableAsync
 public class EmailHandle {
 
     @Resource
     private JavaMailSenderImpl mailSender;
 
-    public void checkEmail(SysMessage message) {
-        if (StringUtils.isEmpty(message.getReceiver())) {
-            throw new BaseException(ErrorCode.MSG_RECEIVER_NOT_FOUND);
-        }
-        if (EmailUtil.isEmail(message.getReceiver())) {
-            throw new BaseException(ErrorCode.MSG_EMAIL_FORMAT_ERROR);
-        }
-        if (StringUtils.isEmpty(message.getContent())) {
-            throw new BaseException(ErrorCode.MSG_CONTENT_NOT_FOUND);
-        }
+    @Resource
+    private RedisTemplate redisTemplate;
+
+    @Value("${spring.mail.username}")
+    public String sender;
+
+    @Async
+    public void sendEmail(SysMessage message) throws MessagingException {
+        MimeMessageHelper mimeMessageHelper = buildEmail(message.getReceiver());
+        setText(mimeMessageHelper, NoticeType.OTHER, message.getContent(), message.getReceiver());
+        mailSender.send(mimeMessageHelper.getMimeMessage());
     }
 
-    public MimeMessageHelper buildBaseEmail(SysMessage message) {
+    @Async
+    public void sendEmail(String address, NoticeType noticeType) throws MessagingException {
+        MimeMessageHelper mimeMessageHelper = buildEmail(address);
+        setText(mimeMessageHelper, noticeType, null, address);
+        mailSender.send(mimeMessageHelper.getMimeMessage());
+    }
+
+    public MimeMessageHelper buildEmail(String address) throws MessagingException {
+        checkEmail(address);
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-        try {
-            messageHelper.setFrom(message.getSender());
-            messageHelper.setTo(message.getReceiver());
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
+        messageHelper.setFrom(sender);
+        messageHelper.setTo(address);
         return messageHelper;
     }
 
-    public MimeMessage buildVerificationCode(String subject, MimeMessageHelper messageHelper) {
-        try {
-            messageHelper.setSubject(subject);
-            messageHelper.setText("<p><h3>验证码:" + getVerifyCode() + "</h3>您正在注册成为用户，" +
-                    "请在1分钟内完成注册。若非本人操作，请忽略。</p>", true);
-        } catch (MessagingException e) {
-            e.printStackTrace();
+    public void setText(MimeMessageHelper mimeMessageHelper, NoticeType noticeType, String content, String address) throws MessagingException {
+        mimeMessageHelper.setSubject(noticeType.getType());
+        switch (noticeType) {
+            case LOGIN:
+                mimeMessageHelper.setText(getLoginCode(address), true);
+                break;
+            case REGISTRY:
+                mimeMessageHelper.setText(getRegistryCode(address), true);
+                break;
+            default:
+                mimeMessageHelper.setText(content, false);
+                break;
         }
-        return messageHelper.getMimeMessage();
     }
 
-    public String getVerifyCode(){
+    public String getCode(NoticeType type, String address) {
         UUID uuid = UUID.randomUUID();
-        String verifyCode = uuid.toString().substring(0, 6);
-        return verifyCode;
+        String code = uuid.toString().substring(0, 6);
+        redisTemplate.opsForValue().set(type.getType() + ":" + address, code);
+        return code;
+    }
+
+    public String getRegistryCode(String address) {
+        return "<p><h3>验证码:" + getCode(NoticeType.LOGIN, address) + "</h3>您正在注册成为用户，" +
+                "请在10分钟内完成注册。若非本人操作，请忽略。</p>";
+    }
+
+    public String getLoginCode(String address) {
+        return "<p><h3>验证码:" + getCode(NoticeType.REGISTRY, address) + "</h3>您正在登录阅读，" +
+                "若非本人操作，请忽略。</p>";
+    }
+
+    public void checkEmail(String email) {
+        if (StringUtils.isEmpty(email)) {
+            throw new BaseException(ErrorCode.MSG_RECEIVER_NOT_FOUND);
+        }
+        if (EmailUtil.isEmail(email)) {
+            throw new BaseException(ErrorCode.MSG_EMAIL_FORMAT_ERROR);
+        }
     }
 }

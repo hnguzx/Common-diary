@@ -17,6 +17,7 @@ import pers.guzx.user.service.RoleService;
 import pers.guzx.user.service.UserService;
 
 import javax.annotation.Resource;
+import javax.jms.JMSException;
 import java.util.Objects;
 
 /**
@@ -58,23 +59,35 @@ public class UserController {
 
     /**
      * 获取注册验证码
+     *
      * @param emailOrMobile
      * @return
      */
     @PostMapping("/verificationCode/registry/{emailOrMobile}")
     public JsonDto<Object> getRegistryCode(@PathVariable String emailOrMobile) {
-        userService.sendRegistryCode(emailOrMobile);
+        try {
+            userService.sendRegistryCode(emailOrMobile);
+        } catch (JMSException e) {
+            e.printStackTrace();
+            return JsonDto.retFail(ErrorCode.NOTICE_SEND_FAIL);
+        }
         return JsonDto.retOk();
     }
 
     /**
      * 获取登录验证码
-     * @param email
+     *
+     * @param emailOrMobile
      * @return
      */
     @PostMapping("/verificationCode/login/{emailOrMobile}")
-    public JsonDto<Objects> getLoginCode(@PathVariable String emailOrMobile){
-        userService.sendLoginCode(emailOrMobile);
+    public JsonDto<Objects> getLoginCode(@PathVariable String emailOrMobile) {
+        try {
+            userService.sendLoginCode(emailOrMobile);
+        } catch (JMSException e) {
+            e.printStackTrace();
+            return JsonDto.retFail(ErrorCode.NOTICE_SEND_FAIL);
+        }
         return JsonDto.retOk();
     }
 

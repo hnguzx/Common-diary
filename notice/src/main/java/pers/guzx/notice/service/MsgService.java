@@ -1,6 +1,7 @@
 package pers.guzx.notice.service;
 
 import pers.guzx.common.service.BaseService;
+import pers.guzx.notice.entity.NoticeType;
 import pers.guzx.notice.entity.SysMessage;
 
 import javax.mail.MessagingException;
@@ -14,4 +15,8 @@ import javax.mail.MessagingException;
 public interface MsgService extends BaseService<SysMessage> {
 
     public Integer sendMail(SysMessage message) throws MessagingException;
+
+    public SysMessage findBySender(String sender);
+
+    public Integer sendCode(String address, NoticeType type) throws MessagingException;
 }

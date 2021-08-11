@@ -1,14 +1,24 @@
 server:
   port: 7125
 
+myqueue: notice-queue
+mytopic: notice-topic
+
 spring:
   application:
     name: user
+  jms:
+    pub-sub-domain: false
   jpa:
     show-sql: true
   mvc:
     servlet:
       load-on-startup: 1
+  activemq:
+    broker-url: tcp://127.0.0.1:61616
+    in-memory: false
+    user: admin
+    password: admin
   redis:
     host: 8.136.133.5
     port: 6379

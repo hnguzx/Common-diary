@@ -45,7 +45,7 @@ public enum ErrorCode {
     USER_INFO_EXC(200002, "用户信息异常！"),
     USER_INFO_EXIST(200003, "该邮箱或手机号已注册！"),
     EMAIL_SEND_ERROR(200004, "邮件发送错误！"),
-    MSG_SEND_ERROR(200005, "邮件发送错误！"),
+    MSG_SEND_ERROR(200005, "短信发送错误！"),
     USER_NOT_LOGIN(200006, "用户未登陆"),
     USER_ACCOUNT_EXPIRED(200007, "账号已过期"),
     USER_CREDENTIALS_ERROR(200008, "密码错误"),
@@ -59,6 +59,7 @@ public enum ErrorCode {
     USER_NOT_AUTH(200016, "用户没有权限"),
     USER_ROLE_ERROR(200017, "用户角色不存在"),
     CUSTOMER_AUTHORITY_FAIL(200018, "客户认证失败"),
+    NOTICE_SEND_FAIL(200019, "通知发送失败"),
     // 3000-3999 通知相关错误
     DIARY_NOTFOUND(300000, "日记信息不存在！"),
     // 4000-4999 好友相关错误

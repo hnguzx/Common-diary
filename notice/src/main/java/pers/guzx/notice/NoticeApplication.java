@@ -15,7 +15,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableDiscoveryClient
 @EnableSwagger2
 @EnableTransactionManagement
-@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class NoticeApplication {
 
     public static void main(String[] args) {
