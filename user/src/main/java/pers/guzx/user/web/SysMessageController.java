@@ -49,13 +49,13 @@ public class SysMessageController {
         return "test";
     }
 
-    @JmsListener(destination = "${myqueue}")
+    /*@JmsListener(destination = "${myqueue}")
     public void sendMQ(TextMessage message) throws JMSException {
         //将message对象转为MapMessage
         String text = message.getText();
         System.out.println(text);
         simpMessagingTemplate.convertAndSend("/topic/all",text);
-    }
+    }*/
 
     /**
      * 用户模式

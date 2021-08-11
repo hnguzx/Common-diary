@@ -98,10 +98,12 @@ public class UserServiceImpl implements UserService {
             throw new BaseException(ErrorCode.USER_INFO_EXIST);
         }
 
-        ActiveMQMapMessage mapMessage = new ActiveMQMapMessage();
+        /*ActiveMQMapMessage mapMessage = new ActiveMQMapMessage();
         mapMessage.setString("emailOrMobile",emailOrMobile);
         mapMessage.setString("noticeType","registry");
-        messagingTemplate.convertAndSend(queue,mapMessage);
+        messagingTemplate.convertAndSend(queue,mapMessage);*/
+
+        noticeClient.sendRegistryCode(emailOrMobile);
     }
 
     @Override

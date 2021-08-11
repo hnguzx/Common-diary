@@ -37,17 +37,6 @@ public class ScheduleConfig implements SchedulingConfigurer {
 
     @Override
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
-        /*taskRegistrar.addTriggerTask(
-                // 任务内容
-                () -> {
-                    log.info("执行定时任务：" + LocalDateTime.now().toLocalTime());
-                },
-                // 执行周期
-                triggerContext -> {
-                    String cron = scheduledService.getAll().get(0).getCronExpression();
-                    return new CronTrigger(cron).nextExecutionTime(triggerContext);
-                }
-        );*/
         for (SysScheduled springScheduledCron : scheduledService.getAll()) {
             Class<?> clazz;
             Object task;

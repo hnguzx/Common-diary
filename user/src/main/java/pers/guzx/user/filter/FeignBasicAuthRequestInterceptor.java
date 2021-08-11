@@ -2,7 +2,9 @@ package pers.guzx.user.filter;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Guzx
@@ -10,16 +12,15 @@ import org.springframework.beans.factory.annotation.Value;
  * @date 2021/8/6 11:43
  * @describe
  */
+@Slf4j
+@Component
 public class FeignBasicAuthRequestInterceptor implements RequestInterceptor {
-
-    @Value("accessToken")
-    private String accessToken;
 
     public FeignBasicAuthRequestInterceptor() {
     }
 
     @Override
     public void apply(RequestTemplate requestTemplate) {
-        requestTemplate.header("Authorization", "Bearer " + accessToken);
+        requestTemplate.header("Authorization", "Bearer " + System.getProperty("accessToken"));
     }
 }
