@@ -52,7 +52,7 @@ public class MsgController {
     @GetMapping("/registryCode/{email}")
     public JsonDto<Object> verificationCode(@PathVariable String email) {
         try {
-            msgService.sendCode(email, NoticeType.REGISTRY);
+            msgService.sendCode(email, NoticeType.REGISTRY.getType());
         } catch (MessagingException e) {
             e.printStackTrace();
             return JsonDto.retFail(ErrorCode.EMAIL_SEND_ERROR);
@@ -63,7 +63,7 @@ public class MsgController {
     @GetMapping("/loginCode/{email}")
     public JsonDto<Object> loginCode(@PathVariable String email) {
         try {
-            msgService.sendCode(email, NoticeType.LOGIN);
+            msgService.sendCode(email, NoticeType.LOGIN.getType());
         } catch (MessagingException e) {
             e.printStackTrace();
             return JsonDto.retFail(ErrorCode.EMAIL_SEND_ERROR);

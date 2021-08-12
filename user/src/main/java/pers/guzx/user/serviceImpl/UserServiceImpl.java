@@ -86,40 +86,41 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Async
-    public void sendRegistryCode(String emailOrMobile) throws JMSException {
+    public void sendRegistryCode(String emailOrMobile) throws JMSException,BaseException {
         UserDetails user = null;
-        if (EmailUtil.isEmail(emailOrMobile)){
-            user =findByEmail(emailOrMobile);
-        }else{
-            user =findByPhone(emailOrMobile);
+        if (EmailUtil.isEmail(emailOrMobile)) {
+            user = findByEmail(emailOrMobile);
+        } else {
+            user = findByPhone(emailOrMobile);
         }
         if (Objects.nonNull(user)) {
-            throw new BaseException(ErrorCode.USER_INFO_EXIST);
+            throw new BaseException();
         }
 
         ActiveMQMapMessage mapMessage = new ActiveMQMapMessage();
-        mapMessage.setString("emailOrMobile",emailOrMobile);
-        mapMessage.setString("noticeType","registry");
-        messagingTemplate.convertAndSend(queue,mapMessage);
+        mapMessage.setString("emailOrMobile", emailOrMobile);
+        mapMessage.setString("noticeType", "registry");
+        log.info("发送注册验证码：" + emailOrMobile);
+        messagingTemplate.convertAndSend(queue, mapMessage);
     }
 
     @Override
-    public void sendLoginCode(String emailOrMobile) throws JMSException {
+    public void sendLoginCode(String emailOrMobile) throws JMSException,BaseException {
         UserDetails user = null;
-        if (EmailUtil.isEmail(emailOrMobile)){
-            user =findByEmail(emailOrMobile);
-        }else{
-            user =findByPhone(emailOrMobile);
+        if (EmailUtil.isEmail(emailOrMobile)) {
+            user = findByEmail(emailOrMobile);
+        } else {
+            user = findByPhone(emailOrMobile);
         }
 
         if (Objects.isNull(user)) {
             throw new BaseException(ErrorCode.USER_NOT_FOUND);
         }
         ActiveMQMapMessage mapMessage = new ActiveMQMapMessage();
-        mapMessage.setString("emailOrMobile",emailOrMobile);
-        mapMessage.setString("noticeType","login");
-        messagingTemplate.convertAndSend(queue,mapMessage);
+        mapMessage.setString("emailOrMobile", emailOrMobile);
+        mapMessage.setString("noticeType", "login");
+        log.info("发送登录验证码：" + emailOrMobile);
+        messagingTemplate.convertAndSend(queue, mapMessage);
     }
 
     @Override

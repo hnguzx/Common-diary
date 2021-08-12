@@ -78,13 +78,14 @@ public class MsgServiceImpl implements MsgService {
     }
 
     @Override
-    public Integer sendCode(String address, NoticeType type) throws MessagingException {
+    public Integer sendCode(String address, String type) throws MessagingException {
+        log.info("发送" + type + " code:" + address);
         emailHandle.sendEmail(address, type);
         SysMessage message = new SysMessage();
         message.setMsgType(NoticeType.LOGIN.getType());
         message.setReceiver(address);
         message.setSender(sender);
-        message.setContent(type.getType());
+        message.setContent(type);
         return save(message);
     }
 

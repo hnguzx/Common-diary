@@ -16,6 +16,7 @@ public class BaseException extends RuntimeException {
     private ErrorCode errorCode;
 
     public BaseException() {
+        super();
     }
 
     public BaseException(ErrorCode errorCode) {

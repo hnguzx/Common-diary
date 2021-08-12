@@ -21,7 +21,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 // 是否可以将请求的响应暴露给页面
                 .allowCredentials(true)
                 // 允许进行跨域请求方式，可以多个
-                .allowedMethods("GET", "POST", "DELETE", "PATCH")
+                .allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
                 // 允许进行跨域请求的header
                 .allowedHeaders("*")
                 // 前端可以获得的额外响应头详细

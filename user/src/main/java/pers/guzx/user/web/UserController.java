@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pers.guzx.common.code.ErrorCode;
 import pers.guzx.common.dto.JsonDto;
+import pers.guzx.common.exception.BaseException;
 import pers.guzx.common.validation.Group;
 import pers.guzx.user.client.DemoClient;
 import pers.guzx.user.entity.SysUserDetails;
@@ -70,6 +71,9 @@ public class UserController {
         } catch (JMSException e) {
             e.printStackTrace();
             return JsonDto.retFail(ErrorCode.NOTICE_SEND_FAIL);
+        }catch (BaseException e){
+            e.printStackTrace();
+            return JsonDto.retFail(ErrorCode.USER_INFO_EXIST);
         }
         return JsonDto.retOk();
     }
@@ -87,6 +91,9 @@ public class UserController {
         } catch (JMSException e) {
             e.printStackTrace();
             return JsonDto.retFail(ErrorCode.NOTICE_SEND_FAIL);
+        }catch (BaseException e){
+            e.printStackTrace();
+            return JsonDto.retFail(ErrorCode.USER_NOT_FOUND);
         }
         return JsonDto.retOk();
     }

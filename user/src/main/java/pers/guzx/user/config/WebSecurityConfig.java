@@ -61,6 +61,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
+                // 跨域预检请求
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 // 登录/退出
                 .antMatchers("/common/login").permitAll()
                 // 注册,验证码

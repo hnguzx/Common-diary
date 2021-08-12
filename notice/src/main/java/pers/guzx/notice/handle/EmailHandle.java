@@ -44,12 +44,12 @@ public class EmailHandle {
     @Async
     public void sendEmail(SysMessage message) throws MessagingException {
         MimeMessageHelper mimeMessageHelper = buildEmail(message.getReceiver());
-        setText(mimeMessageHelper, NoticeType.OTHER, message.getContent(), message.getReceiver());
+        setText(mimeMessageHelper, NoticeType.OTHER.getType(), message.getContent(), message.getReceiver());
         mailSender.send(mimeMessageHelper.getMimeMessage());
     }
 
     @Async
-    public void sendEmail(String address, NoticeType noticeType) throws MessagingException {
+    public void sendEmail(String address, String noticeType) throws MessagingException {
         MimeMessageHelper mimeMessageHelper = buildEmail(address);
         setText(mimeMessageHelper, noticeType, null, address);
         mailSender.send(mimeMessageHelper.getMimeMessage());
@@ -64,13 +64,13 @@ public class EmailHandle {
         return messageHelper;
     }
 
-    public void setText(MimeMessageHelper mimeMessageHelper, NoticeType noticeType, String content, String address) throws MessagingException {
-        mimeMessageHelper.setSubject(noticeType.getType());
+    public void setText(MimeMessageHelper mimeMessageHelper, String noticeType, String content, String address) throws MessagingException {
+        mimeMessageHelper.setSubject(noticeType);
         switch (noticeType) {
-            case LOGIN:
+            case "login":
                 mimeMessageHelper.setText(getLoginCode(address), true);
                 break;
-            case REGISTRY:
+            case "registry":
                 mimeMessageHelper.setText(getRegistryCode(address), true);
                 break;
             default:
@@ -100,7 +100,7 @@ public class EmailHandle {
         if (StringUtils.isEmpty(email)) {
             throw new BaseException(ErrorCode.MSG_RECEIVER_NOT_FOUND);
         }
-        if (EmailUtil.isEmail(email)) {
+        if (!EmailUtil.isEmail(email)) {
             throw new BaseException(ErrorCode.MSG_EMAIL_FORMAT_ERROR);
         }
     }

@@ -2,7 +2,9 @@ package pers.guzx.notice.handle;
 
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
+import pers.guzx.notice.service.MsgService;
 
+import javax.annotation.Resource;
 import javax.jms.MapMessage;
 import javax.jms.Message;
 
@@ -15,6 +17,9 @@ import javax.jms.Message;
 @Component
 public class MQHandle {
 
+    @Resource
+    private MsgService msgService;
+
     @JmsListener(destination = "${queue}")//监听哪个队列
     public void send(Message message) {
         //将message对象转为MapMessage
@@ -22,9 +27,7 @@ public class MQHandle {
         try {
             String emailOrMobile = mapMessage.getString("emailOrMobile");
             String noticeType = mapMessage.getString("noticeType");
-            //打印队列中的消息查看
-            System.out.println(emailOrMobile);
-            System.out.println(noticeType);
+            msgService.sendCode(emailOrMobile, noticeType);
         } catch (Exception e) {
             e.printStackTrace();
         }

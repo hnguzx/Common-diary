@@ -45,4 +45,15 @@ CREATE TABLE IF NOT EXISTS zipkin_dependencies (
                                                    `call_count` BIGINT,
                                                    `error_count` BIGINT,
                                                    PRIMARY KEY (`day`, `parent`, `child`)
-) ENGINE=InnoDB ROW_FORMAT=COMPRESSED CHARACTER SET=utf8 COLLATE utf8_general_ci;
+) ENGINE=InnoDB ROW_FORMAT=COMPRESSED CHARACTER SET=utf8 COLLATE utf8_general_ci
+
+SELECT lower(concat(CASE trace_id_high
+                        WHEN '0' THEN ''
+                        ELSE hex(trace_id_high)
+                        END,hex(trace_id))) AS trace_id,
+       lower(hex(parent_id)) as parent_id,
+       lower(hex(id)) as span_id,
+       name,
+       from_unixtime(start_ts/1000000) as timestamp
+FROM zipkin_spans
+where (start_ts/1000000) > UNIX_TIMESTAMP(now()) - 5 * 60;

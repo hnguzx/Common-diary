@@ -18,5 +18,5 @@ public interface MsgService extends BaseService<SysMessage> {
 
     public SysMessage findBySender(String sender);
 
-    public Integer sendCode(String address, NoticeType type) throws MessagingException;
+    public Integer sendCode(String address, String type) throws MessagingException;
 }
