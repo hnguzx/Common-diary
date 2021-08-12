@@ -1,6 +1,7 @@
 package pers.guzx.common.exception;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import pers.guzx.common.code.ErrorCode;
 
 /**
@@ -10,6 +11,7 @@ import pers.guzx.common.code.ErrorCode;
  * @describe
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class BaseException extends RuntimeException {
     private ErrorCode errorCode;
 
