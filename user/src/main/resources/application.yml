@@ -1,8 +1,13 @@
 server:
-  port: 7125
+  port: 7127
 
-myqueue: notice-queue
-mytopic: notice-topic
+myqueue:
+  notice: notice-queue
+  log: log-queue
+
+mytopic:
+  notice: notice-topic
+  log: log-queue
 
 spring:
   application:
@@ -10,6 +15,11 @@ spring:
   zipkin:
     base-url: http://127.0.0.1:9411/
     discovery-client-enabled: true
+    sender:
+      type: web
+  sleuth:
+    sampler:
+      probability: 1.0
   jms:
     pub-sub-domain: false
   jpa:
@@ -65,7 +75,7 @@ eureka:
     status-page-url: http://${spring.cloud.client.ip-address}:${server.port}/swagger-ui.html
   client:
     service-url:
-      defaultZone: http://${spring.cloud.client.ip-address}:7121/eureka
+      defaultZone: http://admin:admin@${spring.cloud.client.ip-address}:7121/eureka
     fetch-registry: true
 
 

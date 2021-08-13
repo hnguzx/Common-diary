@@ -35,7 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //链式配置拦截策略
         http.csrf().disable()//关闭csrf跨域检查
                 .authorizeRequests()
-                .antMatchers("/oauth/authorize","/oauth/token","/check/token").permitAll()
+                .antMatchers("/actuator/**").permitAll()
+                .antMatchers("/oauth/authorize", "/oauth/token", "/check/token").permitAll()
                 .anyRequest().authenticated(); //可从默认的login页面登录，并且登录后跳转到main.html
     }
 

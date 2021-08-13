@@ -20,7 +20,7 @@ public class MQHandle {
     @Resource
     private MsgService msgService;
 
-    @JmsListener(destination = "${queue}")//监听哪个队列
+    @JmsListener(destination = "${myqueue.notice}")//监听哪个队列
     public void send(Message message) {
         //将message对象转为MapMessage
         MapMessage mapMessage = (MapMessage) message;

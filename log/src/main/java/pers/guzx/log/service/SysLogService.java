@@ -10,5 +10,4 @@ import pers.guzx.log.entity.SysLog;
  * @describe
  */
 public interface SysLogService extends BaseService<SysLog> {
-    public void saveLog(SysLog log);
 }

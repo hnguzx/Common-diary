@@ -7,6 +7,15 @@ spring:
   zipkin:
     base-url: http://127.0.0.1:9411/
     discovery-client-enabled: true
+    sender:
+      type: web # 后面改为activeMQ
+  sleuth:
+    sampler:
+      probability: 0.8
+  security:
+    user:
+      name: admin
+      password: admin
 
 eureka:
   client:

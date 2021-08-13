@@ -2,6 +2,7 @@ package pers.guzx.user.serviceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.activemq.command.ActiveMQMapMessage;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -47,9 +48,9 @@ public class UserServiceImpl implements UserService {
     @Resource
     private JmsMessagingTemplate messagingTemplate;
     @Resource
-    private Queue queue;
+    private Queue noticeQueue;
     @Resource
-    private Topic topic;
+    private Topic noticeTopic;
 
     public UserDetails findByPhone(String phone) {
         Example example = new Example(SysUserDetails.class);
@@ -101,7 +102,7 @@ public class UserServiceImpl implements UserService {
         mapMessage.setString("emailOrMobile", emailOrMobile);
         mapMessage.setString("noticeType", "registry");
         log.info("发送注册验证码：" + emailOrMobile);
-        messagingTemplate.convertAndSend(queue, mapMessage);
+        messagingTemplate.convertAndSend(noticeQueue, mapMessage);
     }
 
     @Override
@@ -120,7 +121,7 @@ public class UserServiceImpl implements UserService {
         mapMessage.setString("emailOrMobile", emailOrMobile);
         mapMessage.setString("noticeType", "login");
         log.info("发送登录验证码：" + emailOrMobile);
-        messagingTemplate.convertAndSend(queue, mapMessage);
+        messagingTemplate.convertAndSend(noticeQueue, mapMessage);
     }
 
     @Override

@@ -7,10 +7,12 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import tk.mybatis.spring.annotation.MapperScan;
 
 /**
  * @author Administrator
  */
+@MapperScan(basePackages = "pers.guzx.notice.mapper")
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableSwagger2

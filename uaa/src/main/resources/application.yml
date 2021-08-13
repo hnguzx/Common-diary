@@ -1,5 +1,6 @@
 server:
-  port: 7127
+  port: 7124
+
 spring:
   application:
     name: uaa
@@ -48,11 +49,10 @@ management:
   endpoints:
     web:
       exposure:
-        include:
-          - refresh
-          - health
-          - info
-          - env
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
 
 eureka:
   instance:
@@ -61,7 +61,7 @@ eureka:
     status-page-url: http://${spring.cloud.client.ip-address}:${server.port}/swagger-ui.html
   client:
     service-url:
-      defaultZone: http://${spring.cloud.client.ip-address}:7121/eureka
+      defaultZone: http://admin:admin@${spring.cloud.client.ip-address}:7121/eureka
     fetch-registry: true
 
 mybatis:
@@ -73,9 +73,9 @@ pagehelper:
   helper-dialect: mysql
   reasonable: true
   support-methods-arguments: true
-debug: true
+
 logging:
-  level:
-    root: debug
+  file:
+    name: uaa-all.log
 
 accessToken: ''

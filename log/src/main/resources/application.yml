@@ -1,12 +1,52 @@
 server:
   port: 7125
 
+myqueue:
+  log: log-queue
+
+mytopic:
+  log: log-queue
+
 spring:
   application:
     name: log
   zipkin:
     base-url: http://127.0.0.1:9411/
     discovery-client-enabled: true
+    sender:
+      type: web
+  sleuth:
+    sampler:
+      probability: 1.0
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://8.136.133.5:3306/common_diary
+    username: root
+    password: Guzx.@970712
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 10
+      min-idle: 10
+      max-active: 50
+      max-wait: 100
+      time-between-eviction-runs-millis: 200000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      filters: stat,slf4j,wall
+      url: jdbc:mysql://8.136.133.5:3306/common_diary?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai
+      username: root
+      password: Guzx.@970712
+      keep-alive: true
+      max-pool-prepared-statement-per-connection-size: 20
+  activemq:
+    broker-url: tcp://127.0.0.1:61616
+    in-memory: false
+    user: admin
+    password: admin
 
 eureka:
   client:
@@ -14,10 +54,15 @@ eureka:
     healthcheck:
       enabled: true
     service-url:
-      defaultZone: http://${spring.cloud.client.ip-address}:7121/eureka
+      defaultZone: http://admin:admin@${spring.cloud.client.ip-address}:7121/eureka
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: pers.guzx.log.entity
+
 management:
   trace:
     http:
@@ -26,3 +71,17 @@ management:
     web:
       exposure:
         include: '*'
+
+logging:
+  file:
+    name: log-all.log
+  level:
+    pers:
+      guzx:
+        log:
+          mapper: debug
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true

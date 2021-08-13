@@ -1,21 +1,15 @@
-package pers.guzx.log.entity;
+package pers.guzx.common.entity;
 
 import lombok.Data;
-
-import javax.persistence.Column;
-import javax.persistence.Id;
 
 /**
  * @author Guzx
  * @version 1.0
- * @date 2021/7/6 10:04
+ * @date 2021/8/12 17:44
  * @describe
  */
 @Data
 public class SysLog {
-    
-    @Id
-    @Column(name = "log_id")
     private Long logId;
     private String username;
     private String userOperation;

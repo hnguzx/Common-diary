@@ -5,6 +5,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import pers.guzx.common.annotation.SysLogger;
 import pers.guzx.common.code.ErrorCode;
 import pers.guzx.common.dto.JsonDto;
 import pers.guzx.common.validation.Group;
@@ -49,6 +50,7 @@ public class MsgController {
         return JsonDto.retOk(bySender);
     }
 
+    @SysLogger("test notice log")
     @GetMapping("/registryCode/{email}")
     public JsonDto<Object> verificationCode(@PathVariable String email) {
         try {

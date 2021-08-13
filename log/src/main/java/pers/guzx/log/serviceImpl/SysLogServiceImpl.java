@@ -18,18 +18,28 @@ import javax.annotation.Resource;
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class SysLogServiceImpl extends BaseServiceImpl<SysLog> implements SysLogService {
+public class SysLogServiceImpl implements SysLogService {
 
     @Resource
     private SysLogMapper logMapper;
 
     @Override
-    public BaseMapper<SysLog> getMapper() {
-        return this.logMapper;
+    public SysLog findById(int id) {
+        return logMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public void saveLog(SysLog log) {
-        int insert = logMapper.insert(log);
+    public int save(SysLog sysLog) {
+        return logMapper.insert(sysLog);
+    }
+
+    @Override
+    public int update(SysLog sysLog) {
+        return logMapper.updateByPrimaryKeySelective(sysLog);
+    }
+
+    @Override
+    public int remove(int id) {
+        return logMapper.deleteByPrimaryKey(id);
     }
 }

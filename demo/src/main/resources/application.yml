@@ -1,5 +1,5 @@
 server:
-  port: 7123
+  port: 7126
 
 spring:
   application:
@@ -7,13 +7,20 @@ spring:
   zipkin:
     base-url: http://127.0.0.1:9411/
     discovery-client-enabled: true
+    sender:
+      type: web
+  sleuth:
+    sampler:
+      probability: 1.0
   jpa:
     show-sql: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://8.136.133.5:3306/demo
+#    url: jdbc:mysql://8.136.133.5:3306/demo
+    url: jdbc:mysql://127.0.0.1:3306/common_diary
     username: root
-    password: Guzx.@970712
+#    password: Guzx.@970712
+    password: 970712
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initial-size: 5
@@ -28,16 +35,11 @@ spring:
       test-on-return: false
       pool-prepared-statements: true
       filters: stat,log4j2,wall
-      url: jdbc:mysql://8.136.133.5:3306/demo?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai
+#      url: jdbc:mysql://8.136.133.5:3306/demo?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai
+      url: jdbc:mysql://127.0.0.1:3306/common_diary?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai
       username: root
-      password: Guzx.@970712
-#  sql:
-#    init:
-#      encoding: utf-8
-#      separator: ;
-#      mode: always
-#      schema-locations: classpath:schame.sql
-#      data-locations: classpath:data.sql
+#      password: Guzx.@970712
+      password: 970712
 
 
 eureka:
@@ -47,7 +49,7 @@ eureka:
     status-page-url: http://${spring.cloud.client.ip-address}:${server.port}/swagger-ui.html
   client:
     service-url:
-      defaultZone: http://${spring.cloud.client.ip-address}:7121/eureka
+      defaultZone: http://admin:admin@${spring.cloud.client.ip-address}:7121/eureka
     fetch-registry: true
 
 
@@ -58,8 +60,6 @@ mybatis:
 logging:
   file:
     name: demo-all.log
-  pattern:
-    file: '%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID}){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n%wEx'
   level:
     pers:
       guzx:
@@ -70,10 +70,8 @@ pagehelper:
   helper-dialect: mysql
   reasonable: true
   support-methods-arguments: true
+
 management:
-  trace:
-    http:
-      enabled: true
   endpoints:
     web:
       exposure:
@@ -81,6 +79,4 @@ management:
   endpoint:
     health:
       show-details: always
-    logfile:
-      enabled: true
 
