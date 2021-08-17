@@ -18,7 +18,7 @@ spring:
     show-sql: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${ip}:3306/demo
+    url: jdbc:mysql://${ip}:3306/demo?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone =Asia/Shanghai
     username: root
     password: Guzx.@970712
     type: com.alibaba.druid.pool.DruidDataSource
@@ -35,7 +35,7 @@ spring:
       test-on-return: false
       pool-prepared-statements: true
       filters: stat,log4j2,wall
-      url: jdbc:mysql://${ip}:3306/demo?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai
+      url: jdbc:mysql://${ip}:3306/demo?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone =Asia/Shanghai
       username: root
       password: Guzx.@970712
 

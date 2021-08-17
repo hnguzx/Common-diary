@@ -23,11 +23,11 @@ public class GetTokenTask implements ScheduledOfTask {
     @Resource
     private UaaClient uaaClient;
 
-    @Value("system.clientId")
+    @Value("${system.clientId}")
     private String clientId;
-    @Value("system.clientSecret")
+    @Value("${system.clientSecret}")
     private String clientSecret;
-    @Value("system.grantType")
+    @Value("${system.grantType}")
     private String grantType;
 
     @Override
