@@ -42,7 +42,7 @@ public class AuthorityServiceImpl implements AuthorityService {
         userAuthorities.stream().map(userAuthority -> {
             Example example = new Example(SysAuthority.class);
             Example.Criteria criteria = example.createCriteria();
-            criteria.andEqualTo("id", userAuthority.getAuthorityId());
+            criteria.andEqualTo("authorityId", userAuthority.getAuthorityId());
             SysAuthority authority = authorityMapper.selectOneByExample(example);
             return authority;
         }).forEach(authorities::add);
@@ -53,7 +53,7 @@ public class AuthorityServiceImpl implements AuthorityService {
     public List<UserAuthority> getUserAuthorityByUser(UserDetails user) {
         Example example = new Example(UserAuthority.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("userId", ((SysUserDetails) user).getId());
+        criteria.andEqualTo("userId", ((SysUserDetails) user).getUserId());
         List<UserAuthority> userAuthorities = userAuthorityMapper.selectByExample(example);
         return userAuthorities;
     }
@@ -63,7 +63,7 @@ public class AuthorityServiceImpl implements AuthorityService {
         List<GrantedAuthority> authorities = new ArrayList<>();
         Example example = new Example(RoleAuthority.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("roleId", role.getId());
+        criteria.andEqualTo("roleId", role.getRoleId());
 
         // 从角色权限中间表中获取权限信息
         List<RoleAuthority> roleAuthorities = roleAuthorityMapper.selectByExample(example);
@@ -75,9 +75,24 @@ public class AuthorityServiceImpl implements AuthorityService {
         return authorities;
     }
 
-    public SysAuthority save(SysAuthority authority) {
-        int insert = authorityMapper.insert(authority);
-        return authority;
+    @Override
+    public SysAuthority findById(int id) {
+        return null;
+    }
+
+    @Override
+    public int save(SysAuthority authority) {
+        return authorityMapper.insert(authority);
+    }
+
+    @Override
+    public int update(SysAuthority sysAuthority) {
+        return 0;
+    }
+
+    @Override
+    public int remove(int id) {
+        return 0;
     }
 
     public RoleAuthority save(RoleAuthority roleAuthority) {

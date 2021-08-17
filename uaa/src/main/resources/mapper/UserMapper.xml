@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="pers.guzx.uaa.mapper.UserMapper">
+<mapper namespace="per.guzx.uaa.mapper.UserMapper">
     <resultMap id="BaseResultMap" type="pers.guzx.uaa.entity.SysUserDetails">
-        <id column="id" property="id"/>
-        <result column="username" property="username"/>
+        <id column="user_id" property="userId"/>
+        <result column="username" property="userName"/>
+        <result column="birthday" property="birthday"/>
+        <result column="sex" property="sex"/>
         <result column="password" property="password"/>
-        <result column="account_expired" property="accountNonExpired"/>
-        <result column="account_locked" property="accountNonLocked"/>
-        <result column="credentials_expired" property="credentialsNonExpired"/>
+        <result column="phone" property="phone"/>
+        <result column="email" property="email"/>
+        <result column="role" property="role"/>
+        <result column="account_non_expired" property="accountNonExpired"/>
+        <result column="account_non_locked" property="accountNonLocked"/>
+        <result column="credentials_non_expired" property="credentialsNonExpired"/>
         <result column="enabled" property="enabled"/>
     </resultMap>
 </mapper>

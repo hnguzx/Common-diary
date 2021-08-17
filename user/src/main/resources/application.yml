@@ -40,7 +40,7 @@ spring:
     user: admin
     password: admin
   redis:
-    host: 8.136.133.5
+    host: ${ip}
     port: 6379
     jedis:
       pool:

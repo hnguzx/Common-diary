@@ -2,6 +2,8 @@ package pers.guzx.uaa.service;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import pers.guzx.common.service.BaseService;
+import pers.guzx.uaa.entity.SysRole;
 import pers.guzx.uaa.entity.UserRole;
 
 /**
@@ -10,10 +12,12 @@ import pers.guzx.uaa.entity.UserRole;
  * @date 2021/7/19 11:35
  * @describe
  */
-public interface RoleService {
+public interface RoleService extends BaseService<SysRole> {
     UserRole getUserRole(Integer userId);
 
     GrantedAuthority getRoleById(UserRole userRoles);
 
     UserRole getUserRoleByUser(UserDetails user);
+
+    int saveUserRole(UserDetails user);
 }

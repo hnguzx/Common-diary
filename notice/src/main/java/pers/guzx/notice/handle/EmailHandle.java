@@ -87,12 +87,12 @@ public class EmailHandle {
     }
 
     public String getRegistryCode(String address) {
-        return "<p><h3>验证码:" + getCode(NoticeType.LOGIN, address) + "</h3>您正在注册成为用户，" +
+        return "<p><h3>验证码:" + getCode(NoticeType.REGISTRY, address) + "</h3>您正在注册成为用户，" +
                 "请在10分钟内完成注册。若非本人操作，请忽略。</p>";
     }
 
     public String getLoginCode(String address) {
-        return "<p><h3>验证码:" + getCode(NoticeType.REGISTRY, address) + "</h3>您正在登录阅读，" +
+        return "<p><h3>验证码:" + getCode(NoticeType.LOGIN, address) + "</h3>您正在登录阅读，" +
                 "若非本人操作，请忽略。</p>";
     }
 

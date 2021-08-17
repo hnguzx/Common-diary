@@ -5,7 +5,6 @@ import lombok.Data;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 /**
  * @author Guzx
@@ -15,7 +14,7 @@ import java.io.Serializable;
  */
 @Data
 @Table(name = "sys_user_authority")
-public class UserAuthority implements Serializable {
+public class UserAuthority {
     @Id
     @GeneratedValue(generator = "JDBC")
     private Integer id;

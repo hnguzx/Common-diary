@@ -1,8 +1,7 @@
 package pers.guzx.uaa.mapper;
 
-
+import pers.guzx.common.mapper.BaseMapper;
 import pers.guzx.uaa.entity.SysUserDetails;
-import tk.mybatis.mapper.common.Mapper;
 
 /**
  * @author Guzx
@@ -10,5 +9,5 @@ import tk.mybatis.mapper.common.Mapper;
  * @date 2021/7/19 10:23
  * @describe
  */
-public interface UserMapper extends Mapper<SysUserDetails> {
+public interface UserMapper extends BaseMapper<SysUserDetails> {
 }

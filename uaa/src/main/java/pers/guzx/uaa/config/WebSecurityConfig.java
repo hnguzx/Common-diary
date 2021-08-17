@@ -8,11 +8,12 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.InMemoryAuthorizationCodeServices;
-import pers.guzx.uaa.serviceImpl.UserAuthDetailsServiceImpl;
+import pers.guzx.uaa.serviceImpl.UserDetailServiceImpl;
 
 import javax.annotation.Resource;
 
@@ -28,7 +29,7 @@ import javax.annotation.Resource;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource
-    private UserAuthDetailsServiceImpl userDetailsService;
+    private UserDetailServiceImpl userDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -37,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/actuator/**").permitAll()
                 .antMatchers("/oauth/authorize", "/oauth/token", "/check/token").permitAll()
-                .anyRequest().authenticated(); //可从默认的login页面登录，并且登录后跳转到main.html
+                .anyRequest().authenticated().and().httpBasic();
     }
 
     /**

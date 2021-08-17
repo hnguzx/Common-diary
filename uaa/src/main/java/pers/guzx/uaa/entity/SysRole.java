@@ -1,6 +1,6 @@
 package pers.guzx.uaa.entity;
 
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.GeneratedValue;
@@ -11,27 +11,22 @@ import java.util.List;
 /**
  * @author Guzx
  * @version 1.0
- * @date 2021/7/19 10:07
- * @describe 系统角色，与权限表配合使用，一个角色可以有多个权限
+ * @date 2021/7/8 11:11
+ * @describe
  */
-@Setter
-public class SysRole implements GrantedAuthority, Serializable {
+@Data
+public class SysRole implements Serializable, GrantedAuthority {
     @Id
     @GeneratedValue(generator = "JDBC")
-    private Integer id;
-    private String name;
-    private List<SysAuthority> sysAuthorities;
+    private Integer roleId;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public List<SysAuthority> getSysAuthorities() {
-        return sysAuthorities;
-    }
+    private String roleCode;
+    private String roleName;
+    private String roleDesc;
+    private List<SysAuthority> permissionList;
 
     @Override
     public String getAuthority() {
-        return this.name;
+        return this.roleName;
     }
 }

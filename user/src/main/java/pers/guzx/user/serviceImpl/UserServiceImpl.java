@@ -44,8 +44,6 @@ public class UserServiceImpl implements UserService {
     @Resource
     private PasswordEncoder passwordEncoder;
     @Resource
-    private NoticeClient noticeClient;
-    @Resource
     private JmsMessagingTemplate messagingTemplate;
     @Resource
     private Queue noticeQueue;

@@ -9,59 +9,86 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * @author Guzx
  * @version 1.0
- * @date 2021/7/19 10:02
- * @describe 系统用户 一个用户在系统中只有一个角色，多个权限
+ * @date 2021/7/6 14:52
+ * @describe
  */
 @Setter
 @Table(name = "sys_user")
-public class SysUserDetails implements UserDetails, Serializable {
+public class SysUserDetails implements Serializable, UserDetails {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(generator = "JDBC")
-    private Integer id;
+    private Integer userId;
     private String username;
-    private String password;
+    private LocalDate birthday;
 
-    @Column(name = "account_expired")
+    private String sex;
+    private String password;
+    private String phone;
+    private String email;
+    private String role;
+
+    @Column
     private Boolean accountNonExpired;
-    @Column(name = "account_locked")
+    @Column
     private Boolean accountNonLocked;
-    @Column(name = "credentials_expired")
+    @Column
     private Boolean credentialsNonExpired;
-    @Column(name = "enabled")
+    @Column
     private Boolean enabled;
 
-    private List<GrantedAuthority> authorities;
+    private Collection<? extends GrantedAuthority> authorities;
 
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.authorities;
-    }
-
-    @Override
-    public String getPassword() {
-        return this.password;
+    public Integer getUserId() {
+        return userId;
     }
 
     @Override
     public String getUsername() {
-        return this.username;
+        return username;
     }
 
-    public Integer getId() {
-        return id;
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return this.accountNonExpired;
+        return accountNonExpired;
     }
 
     @Override

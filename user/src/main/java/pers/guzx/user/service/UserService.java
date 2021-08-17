@@ -2,7 +2,6 @@ package pers.guzx.user.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import pers.guzx.common.service.BaseService;
-import pers.guzx.common.serviceImpl.BaseServiceImpl;
 import pers.guzx.user.entity.SysUserDetails;
 
 import javax.jms.JMSException;

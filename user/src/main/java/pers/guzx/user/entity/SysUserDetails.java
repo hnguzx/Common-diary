@@ -111,14 +111,6 @@ public class SysUserDetails implements Serializable, UserDetails {
         return role;
     }
 
-//    public LocalDateTime getCreateTime() {
-//        return createTime;
-//    }
-//
-//    public LocalDateTime getUpdateTime() {
-//        return updateTime;
-//    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;

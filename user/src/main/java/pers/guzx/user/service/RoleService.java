@@ -4,7 +4,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import pers.guzx.common.service.BaseService;
 import pers.guzx.user.entity.SysRole;
-import pers.guzx.user.entity.SysUserDetails;
 import pers.guzx.user.entity.UserRole;
 
 /**

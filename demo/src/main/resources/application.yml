@@ -3,6 +3,8 @@ server:
 
 ip: 8.136.133.5
 
+
+
 spring:
   application:
     name: demo
@@ -14,6 +16,13 @@ spring:
   sleuth:
     sampler:
       probability: 1.0
+    web:
+      skip-pattern: /health
+  activemq:
+    broker-url: tcp://${ip}:61616
+    in-memory: false
+    user: admin
+    password: admin
   jpa:
     show-sql: true
   datasource:
@@ -38,7 +47,6 @@ spring:
       url: jdbc:mysql://${ip}:3306/demo?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone =Asia/Shanghai
       username: root
       password: Guzx.@970712
-
 
 eureka:
   instance:
@@ -70,6 +78,9 @@ pagehelper:
   support-methods-arguments: true
 
 management:
+  trace:
+    http:
+      enabled: true
   endpoints:
     web:
       exposure:
@@ -77,4 +88,4 @@ management:
   endpoint:
     health:
       show-details: always
-
+debug: true

@@ -2,6 +2,8 @@ package pers.guzx.uaa.service;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import pers.guzx.common.service.BaseService;
+import pers.guzx.uaa.entity.SysAuthority;
 import pers.guzx.uaa.entity.UserAuthority;
 
 import java.util.List;
@@ -12,7 +14,7 @@ import java.util.List;
  * @date 2021/7/19 11:35
  * @describe
  */
-public interface AuthorityService {
+public interface AuthorityService extends BaseService<SysAuthority> {
     UserAuthority getUserAuthority(Integer userId);
 
     List<GrantedAuthority> getAuthorityById(List<UserAuthority> userAuthorities);
