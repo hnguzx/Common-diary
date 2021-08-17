@@ -1,6 +1,13 @@
 server:
   port: 7127
 
+ip: 8.136.133.5
+
+system:
+  clientId: user
+  clientSecret: 1234456
+  grantType: client_credentials
+
 myqueue:
   notice: notice-queue
   log: log-queue
@@ -13,7 +20,7 @@ spring:
   application:
     name: user
   zipkin:
-    base-url: http://127.0.0.1:9411/
+    base-url: http://${ip}:9411/
     discovery-client-enabled: true
     sender:
       type: web
@@ -28,7 +35,7 @@ spring:
     servlet:
       load-on-startup: 1
   activemq:
-    broker-url: tcp://127.0.0.1:61616
+    broker-url: tcp://${ip}:61616
     in-memory: false
     user: admin
     password: admin
@@ -44,7 +51,7 @@ spring:
     timeout: 10000
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://8.136.133.5:3306/common_diary
+    url: jdbc:mysql://${ip}:3306/common_diary
     username: root
     password: Guzx.@970712
     type: com.alibaba.druid.pool.DruidDataSource
@@ -61,7 +68,7 @@ spring:
       test-on-return: false
       pool-prepared-statements: true
       filters: stat,slf4j,wall
-      url: jdbc:mysql://8.136.133.5:3306/common_diary?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai
+      url: jdbc:mysql://${ip}:3306/common_diary?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai
       username: root
       password: Guzx.@970712
       keep-alive: true
@@ -85,7 +92,7 @@ mybatis:
 
 logging:
   file:
-    name: user-all.log
+    name: F:\logs\eureka\user\user-all.log
   level:
     pers:
       guzx:

@@ -66,3 +66,7 @@ create table ClientDetails
     additionalInformation  VARCHAR(4096),
     autoApproveScopes      VARCHAR(128)
 );
+
+INSERT INTO oauth_client_details(client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove)
+VALUES ('user', 'resource1', '$2a$10$9s.TeXckKO9URjDn3mc/9.7zUW4D4qfkkEaxPHfyCoQCsNLwMw4P.', 'scope1,scope2',
+        'authorization_code,password,client_credentials,implicit,refresh_token', 'http://www.baidu.com', NULL, 300, 1500, NULL, 'false');

@@ -1,10 +1,12 @@
 server:
   port: 7123
 
+ip: 8.136.133.5
+
 spring:
   zipkin:
     discovery-client-enabled: true
-    base-url: http://127.0.0.1:9411/
+    base-url: http://${ip}:9411/
     sender:
       type: web
   sleuth:
@@ -19,13 +21,25 @@ spring:
   mail:
     host: smtp.163.com
     username: qq2544697696@163.com
-    password: DBTQLRXWXWROYWMF
+    password: WUVLUVRGONACSUUX
     protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enabled: true
+          starttls:
+            enabled: true
+            required: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
     default-encoding: UTF-8
+    port: 465
   boot:
     admin:
-      ui:
-        title: SpringBootAdmin-Server
       notify:
         mail:
           to: hnguzx@qq.com

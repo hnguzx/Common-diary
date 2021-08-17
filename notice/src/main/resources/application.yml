@@ -1,6 +1,8 @@
 server:
   port: 7128
 
+ip: 8.136.133.5
+
 myqueue:
   notice: notice-queue
   log: log-queue
@@ -14,7 +16,7 @@ spring:
     name: notice
   zipkin:
     discovery-client-enabled: true
-    base-url: http://127.0.0.1:9411/
+    base-url: http://${ip}:9411/
     sender:
       type: web
   sleuth:
@@ -23,18 +25,32 @@ spring:
   jpa:
     show-sql: true
   activemq:
-    broker-url: tcp://127.0.0.1:61616
+    broker-url: tcp://${ip}:61616
     in-memory: false
     user: admin
     password: admin
   mail:
     host: smtp.163.com
     username: qq2544697696@163.com
-    password: DBTQLRXWXWROYWMF
+    password: WUVLUVRGONACSUUX
     protocol: smtp
     default-encoding: UTF-8
+    port: 465
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enabled: true
+          starttls:
+            enabled: true
+            required: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
   redis:
-    host: 8.136.133.5
+    host: ${ip}
     port: 6379
     jedis:
       pool:
@@ -45,11 +61,9 @@ spring:
     timeout: 10000
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://8.136.133.5:3306/common_diary
-    url: jdbc:mysql://127.0.0.1:3306/common_diary
+    url: jdbc:mysql://${ip}:3306/common_diary
     username: root
-#    password: Guzx.@970712
-    password: 970712
+    password: Guzx.@970712
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initial-size: 10
@@ -64,11 +78,9 @@ spring:
       test-on-return: false
       pool-prepared-statements: true
       filters: stat,slf4j,wall
-#      url: jdbc:mysql://8.136.133.5:3306/common_diary?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai
-      url: jdbc:mysql://127.0.0.1:3306/common_diary?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai
+      url: jdbc:mysql://${ip}:3306/common_diary?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai
       username: root
-#      password: Guzx.@970712
-      password: 970712
+      password: Guzx.@970712
       keep-alive: true
       max-pool-prepared-statement-per-connection-size: 20
 
@@ -94,7 +106,7 @@ logging:
         notice:
           mapper: debug
   file:
-    name: notice-all.log
+    name: F:\logs\eureka\notice\notice-all.log
 
 
 management:

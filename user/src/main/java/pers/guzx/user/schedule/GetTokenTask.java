@@ -1,6 +1,7 @@
 package pers.guzx.user.schedule;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import pers.guzx.user.client.UaaClient;
@@ -18,17 +19,24 @@ import java.util.Map;
  */
 @Slf4j
 @Component
-public class GetTokenTask implements ScheduledOfTask{
+public class GetTokenTask implements ScheduledOfTask {
     @Resource
     private UaaClient uaaClient;
+
+    @Value("system.clientId")
+    private String clientId;
+    @Value("system.clientSecret")
+    private String clientSecret;
+    @Value("system.grantType")
+    private String grantType;
 
     @Override
     public void execute() {
         log.info("获取AccessToken");
         Map<String, String> params = new HashMap<>(3);
-        params.put("client_id", "user");
-        params.put("client_secret", "123456");
-        params.put("grant_type", "client_credentials");
+        params.put("client_id", clientId);
+        params.put("client_secret", clientSecret);
+        params.put("grant_type", grantType);
         JWT jwt = uaaClient.oauthToken(params);
 
         System.setProperty("accessToken", jwt.getAccess_token());

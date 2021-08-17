@@ -1,17 +1,19 @@
 server:
   port: 7121
 
+ip: 8.136.133.5
+
 spring:
   application:
     name: registry
   zipkin:
-    base-url: http://127.0.0.1:9411/
+    base-url: http://${ip}:9411/
     discovery-client-enabled: true
     sender:
       type: web # 后面改为activeMQ
   sleuth:
     sampler:
-      probability: 0.8
+      probability: 1.0
   security:
     user:
       name: admin
@@ -35,3 +37,7 @@ management:
   endpoint:
     health:
       show-details: always
+
+logging:
+  file:
+    name: F:\logs\eureka\eureka-server\eureka-server-all.log

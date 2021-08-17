@@ -1,14 +1,16 @@
 server:
   port: 7124
 
+ip: 8.136.133.5
+
 spring:
   application:
     name: uaa
   zipkin:
     discovery-client-enabled: true
-    base-url: http://127.0.0.1:9411/
+    base-url: http://${ip}:9411/
   datasource:
-    url: jdbc:mysql://8.136.133.5:3306/common_diary?characterEncoding=UTF-8
+    url: jdbc:mysql://${ip}:3306/common_diary?characterEncoding=UTF-8
     username: root
     password: Guzx.@970712
     type: com.alibaba.druid.pool.DruidDataSource
@@ -25,13 +27,13 @@ spring:
       test-on-return: false
       pool-prepared-statements: true
       filters: stat,slf4j,wall
-      url: jdbc:mysql://8.136.133.5:3306/common_diary?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai
+      url: jdbc:mysql://${ip}:3306/common_diary?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai
       username: root
       password: Guzx.@970712
       keep-alive: true
       max-pool-prepared-statement-per-connection-size: 20
   redis:
-    host: 8.136.133.5
+    host: ${ip}
     port: 6379
     jedis:
       pool:
@@ -76,6 +78,6 @@ pagehelper:
 
 logging:
   file:
-    name: uaa-all.log
+    name: F:\logs\eureka\uaa\uaa-all.log
 
 accessToken: ''

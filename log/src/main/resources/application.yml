@@ -1,6 +1,8 @@
 server:
   port: 7125
 
+ip: 8.136.133.5
+
 myqueue:
   log: log-queue
 
@@ -11,7 +13,7 @@ spring:
   application:
     name: log
   zipkin:
-    base-url: http://127.0.0.1:9411/
+    base-url: http://${ip}:9411/
     discovery-client-enabled: true
     sender:
       type: web
@@ -20,7 +22,7 @@ spring:
       probability: 1.0
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://8.136.133.5:3306/common_diary
+    url: jdbc:mysql://${ip}:3306/common_diary
     username: root
     password: Guzx.@970712
     type: com.alibaba.druid.pool.DruidDataSource
@@ -37,13 +39,13 @@ spring:
       test-on-return: false
       pool-prepared-statements: true
       filters: stat,slf4j,wall
-      url: jdbc:mysql://8.136.133.5:3306/common_diary?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai
+      url: jdbc:mysql://${ip}:3306/common_diary?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai
       username: root
       password: Guzx.@970712
       keep-alive: true
       max-pool-prepared-statement-per-connection-size: 20
   activemq:
-    broker-url: tcp://127.0.0.1:61616
+    broker-url: tcp://${ip}:61616
     in-memory: false
     user: admin
     password: admin
@@ -58,6 +60,9 @@ eureka:
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    metadata-map:
+      user.name: "admin"
+      user.password: "admin"
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
@@ -74,7 +79,7 @@ management:
 
 logging:
   file:
-    name: log-all.log
+    name: F:\logs\eureka\log\log-all.log
   level:
     pers:
       guzx:

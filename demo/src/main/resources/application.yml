@@ -1,11 +1,13 @@
 server:
   port: 7126
 
+ip: 8.136.133.5
+
 spring:
   application:
     name: demo
   zipkin:
-    base-url: http://127.0.0.1:9411/
+    base-url: http://${ip}:9411/
     discovery-client-enabled: true
     sender:
       type: web
@@ -16,11 +18,9 @@ spring:
     show-sql: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://8.136.133.5:3306/demo
-    url: jdbc:mysql://127.0.0.1:3306/common_diary
+    url: jdbc:mysql://${ip}:3306/demo
     username: root
-#    password: Guzx.@970712
-    password: 970712
+    password: Guzx.@970712
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initial-size: 5
@@ -35,11 +35,9 @@ spring:
       test-on-return: false
       pool-prepared-statements: true
       filters: stat,log4j2,wall
-#      url: jdbc:mysql://8.136.133.5:3306/demo?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai
-      url: jdbc:mysql://127.0.0.1:3306/common_diary?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai
+      url: jdbc:mysql://${ip}:3306/demo?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai
       username: root
-#      password: Guzx.@970712
-      password: 970712
+      password: Guzx.@970712
 
 
 eureka:
@@ -59,7 +57,7 @@ mybatis:
 
 logging:
   file:
-    name: demo-all.log
+    name: F:\logs\eureka\demo\demo-all.log
   level:
     pers:
       guzx:
