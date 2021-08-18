@@ -3,7 +3,14 @@ server:
 
 ip: 8.136.133.5
 
-
+app:
+  id: demo
+  meta: http://127.0.0.1:8080
+  cacheDir: F:\opt\cache
+  property:
+    names:
+      cache:
+        enable: true
 
 spring:
   application:
