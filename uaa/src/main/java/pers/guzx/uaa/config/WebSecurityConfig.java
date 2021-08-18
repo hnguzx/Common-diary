@@ -36,6 +36,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //链式配置拦截策略
         http.csrf().disable()//关闭csrf跨域检查
                 .authorizeRequests()
+                // 客户端注册
+                .antMatchers("/client/**").permitAll()
+                // 用户注册
+                .antMatchers("/user/**").permitAll()
                 .antMatchers("/actuator/**").permitAll()
                 .antMatchers("/oauth/authorize", "/oauth/token", "/check/token").permitAll()
                 .anyRequest().authenticated().and().httpBasic();

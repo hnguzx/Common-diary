@@ -79,10 +79,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        JdbcClientDetailsService clientDetailsService = new JdbcClientDetailsService(dataSource);
-        clientDetailsService.setPasswordEncoder(passwordEncoder);
-
-        clients.withClientDetails(clientDetailsService);
+        clients.withClientDetails(jdbcClientDetailsService());
     }
 
     /**
@@ -104,6 +101,13 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .tokenServices(tokenServices())
                 // 允许访问端点的方法
                 .allowedTokenEndpointRequestMethods(HttpMethod.POST);
+    }
+
+    @Bean
+    public JdbcClientDetailsService jdbcClientDetailsService(){
+        JdbcClientDetailsService clientDetailsService = new JdbcClientDetailsService(dataSource);
+        clientDetailsService.setPasswordEncoder(passwordEncoder);
+        return clientDetailsService;
     }
 
 

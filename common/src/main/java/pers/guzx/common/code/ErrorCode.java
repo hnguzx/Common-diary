@@ -60,6 +60,7 @@ public enum ErrorCode {
     USER_ROLE_ERROR(200017, "用户角色不存在"),
     CUSTOMER_AUTHORITY_FAIL(200018, "客户认证失败"),
     NOTICE_SEND_FAIL(200019, "通知发送失败"),
+    NO_CLIENT(200019, "客户端不存在"),
     // 3000-3999 通知相关错误
     DIARY_NOTFOUND(300000, "日记信息不存在！"),
     // 4000-4999 好友相关错误
