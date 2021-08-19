@@ -2,7 +2,9 @@ package pers.guzx.demo.web;
 
 import com.ctrip.framework.apollo.Config;
 import com.ctrip.framework.apollo.ConfigService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import pers.guzx.common.dto.JsonDto;
 
@@ -15,12 +17,14 @@ import pers.guzx.common.dto.JsonDto;
 @RestController
 public class ApolloController {
 
-    @GetMapping("/apollo")
-    public JsonDto getConfig() {
+    @Value("${guzx.name}")
+    private String name;
+
+    @GetMapping("/apollo/{parameter}")
+    public JsonDto getConfig(@PathVariable String parameter) {
         Config appConfig = ConfigService.getAppConfig();
-        String key = "name";
-        String defaultValue = "guzxx";
-        String property = appConfig.getProperty(key, defaultValue);
-        return JsonDto.retOk(property);
+        String defaultValue = "defaultValue";
+        String property = appConfig.getProperty(parameter, defaultValue);
+        return JsonDto.retOk(property + ":::" + name);
     }
 }
