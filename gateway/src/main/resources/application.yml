@@ -21,14 +21,14 @@ spring:
           lower-case-service-id: true
           enabled: true
 
-eureka:
-  client:
-    fetch-registry: true
-    service-url:
-      defaultZone: http://admin:admin@${spring.cloud.client.ip-address}:7121/eureka
-  instance:
-    prefer-ip-address: true
-    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+#eureka:
+#  client:
+#    fetch-registry: true
+#    service-url:
+#      defaultZone: http://admin:admin@${spring.cloud.client.ip-address}:7121/eureka
+#  instance:
+#    prefer-ip-address: true
+#    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
 
 management:
   endpoints:

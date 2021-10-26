@@ -46,15 +46,15 @@ spring:
       username: root
       password: Guzx.@970712
 
-eureka:
-  instance:
-    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
-    prefer-ip-address: true
-    status-page-url: http://${spring.cloud.client.ip-address}:${server.port}/swagger-ui.html
-  client:
-    service-url:
-      defaultZone: http://admin:admin@${spring.cloud.client.ip-address}:7121/eureka
-    fetch-registry: true
+#eureka:
+#  instance:
+#    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+#    prefer-ip-address: true
+#    status-page-url: http://${spring.cloud.client.ip-address}:${server.port}/swagger-ui.html
+#  client:
+#    service-url:
+#      defaultZone: http://admin:admin@${spring.cloud.client.ip-address}:7121/eureka
+#    fetch-registry: true
 
 
 mybatis:
