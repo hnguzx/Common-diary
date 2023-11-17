@@ -41,20 +41,20 @@
 
     <dependencies>
         <!--        eureka-server-->
-        <!--<dependency>
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-        </dependency>-->
+        </dependency>
         <!--        zookeeper-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId>
-        </dependency>
+        </dependency>-->
         <!--        web-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+        </dependency>-->
         <!--        zipkin-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

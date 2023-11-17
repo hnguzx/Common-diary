@@ -1,7 +1,7 @@
 server:
   port: 7121
 
-ip: 8.136.133.5
+ip: 127.0.0.1
 
 spring:
   application:

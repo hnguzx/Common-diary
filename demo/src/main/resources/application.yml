@@ -1,7 +1,7 @@
 server:
   port: 7126
 
-ip: 8.136.133.5
+ip: 127.0.0.1
 
 spring:
   application:
@@ -27,7 +27,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://${ip}:3306/demo?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
     username: root
-    password: Guzx.@970712
+#    password: Guzx.@970712
+    password: 123456
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initial-size: 5
@@ -44,17 +45,18 @@ spring:
       filters: stat,log4j2,wall
       url: jdbc:mysql://${ip}:3306/demo?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone =Asia/Shanghai
       username: root
-      password: Guzx.@970712
+#      password: Guzx.@970712
+      password: 123456
 
-#eureka:
-#  instance:
-#    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
-#    prefer-ip-address: true
-#    status-page-url: http://${spring.cloud.client.ip-address}:${server.port}/swagger-ui.html
-#  client:
-#    service-url:
-#      defaultZone: http://admin:admin@${spring.cloud.client.ip-address}:7121/eureka
-#    fetch-registry: true
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+    status-page-url: http://${spring.cloud.client.ip-address}:${server.port}/swagger-ui.html
+  client:
+    service-url:
+      defaultZone: http://admin:admin@${spring.cloud.client.ip-address}:7121/eureka
+    fetch-registry: true
 
 
 mybatis:
